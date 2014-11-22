@@ -1,5 +1,8 @@
 package app;
 
-public class ServicesManager {
+import java.util.List;
 
+public class ServicesManager {
+	private String filename;
+	private List<Service> ServiceList;
 }

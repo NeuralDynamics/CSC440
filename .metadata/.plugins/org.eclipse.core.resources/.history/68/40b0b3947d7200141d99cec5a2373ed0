@@ -17,7 +17,7 @@ public final class ReportFactory {
 		}
 		
 		if (rpt == null) {
-			throw new ReportNotFoundException("The Report " + reportType + " was not found.");
+			throw 
 		}
 		
 		return rpt;
