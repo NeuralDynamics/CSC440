@@ -15,7 +15,7 @@ public class EFTRecordsReport implements IReport {
 	}
 
 	@Override
-	public void setPRovider(Provider p) {
+	public void setProvider(Provider p) {
 		// TODO Auto-generated method stub
 
 	}

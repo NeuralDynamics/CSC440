@@ -15,7 +15,7 @@ public class MemberServiceReport implements IReport {
 	}
 
 	@Override
-	public void setProvider(Provider p) {
+	public void setPRovider(Provider p) {
 		// TODO Auto-generated method stub
 
 	}

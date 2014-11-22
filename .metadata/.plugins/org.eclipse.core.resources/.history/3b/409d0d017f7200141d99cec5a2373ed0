@@ -1,6 +1,6 @@
 package app;
 
-public class MemberServiceReport implements IReport {
+public class ProviderReport implements IReport {
 
 	@Override
 	public void runReport(String filename) {
@@ -15,7 +15,7 @@ public class MemberServiceReport implements IReport {
 	}
 
 	@Override
-	public void setProvider(Provider p) {
+	public void setPRovider(Provider p) {
 		// TODO Auto-generated method stub
 
 	}

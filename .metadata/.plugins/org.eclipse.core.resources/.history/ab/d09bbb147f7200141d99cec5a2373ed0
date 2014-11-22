@@ -9,7 +9,7 @@ public interface IReport {
 	
 	public void setMemeber(Member m);
 	
-	public void setProvider(Provider p);
+	public void setPRovider(Provider p);
 	
 	public void setProviderService(ProvidedService ps);
 

@@ -1,11 +1,13 @@
 package app;
 
-public class MemberServiceReport implements IReport {
+public class ProviderReport implements IReport {
+	private Member m = null;
+	private Provider p = null;
+	private ProviderService ps = null;
 
 	@Override
 	public void runReport(String filename) {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
