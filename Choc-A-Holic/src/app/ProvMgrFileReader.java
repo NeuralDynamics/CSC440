@@ -1,12 +1,14 @@
+package app;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class ProvServMgrFileReader<T> implements IReader<String>
+public class ProvMgrFileReader<T> implements IReader<String> 
 {
-	String fileName = "ProvServMgrFile";
+	String fileName = "ProvMgrFile.txt";
 	@Override
 	public List<String> readData() 
 	{

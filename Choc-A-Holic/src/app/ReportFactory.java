@@ -6,13 +6,13 @@ public final class ReportFactory {
 		
 		switch(reportType) {
 		case "Provider":
-			rpt = new ProviderReport();
+			rpt = new RptProvider();
 			break;
 		case "MemberService":
-			rpt = new MemberServiceReport();
+			rpt = new RptMemberService();
 			break;
 		case "EFTRecords":
-			rpt = new EFTRecordsReport();
+			rpt = new RptEFTRecords();
 			break;
 		}
 		

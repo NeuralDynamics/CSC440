@@ -1,12 +1,14 @@
+package app;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class ServiceMgrFileReader<T> implements IReader<String>
+public class MemMgrFileReader<T> implements IReader<String>
 {
-	String fileName = "ServiceMgrFile.txt";
+	String fileName = "MemMgrFile.txt";
 	@Override
 	public List<String> readData() 
 	{

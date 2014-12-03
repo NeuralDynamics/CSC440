@@ -1,12 +1,14 @@
+package app;
+
+import java.util.List;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.util.List;
 
-public class ProvMgrFileWriter<T> implements IWriter<T> 
+public class MemMgrFileWriter<T> implements IWriter<T> 
 {
-	String fileName = "ProvMgrFile.txt";
+	String fileName = "MemMgrFile.txt";
 	@Override
-	public void writeData(List<T> list) 
+	public void writeData(List<T> list)  
 	{
 		PrintWriter outputFile;
 		try 

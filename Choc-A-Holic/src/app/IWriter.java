@@ -1,5 +1,8 @@
 package app;
 
-public interface IWriter {
+import java.util.List;
 
+public interface IWriter<T>
+{
+	public void writeData(List<T> list);
 }
