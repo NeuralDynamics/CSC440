@@ -33,7 +33,9 @@ public class Service {
 		this.serviceFee = serviceFee;
 	}
 	
-	
+	public String toString() {
+		return serviceName + "~" + serviceCode + "~" + serviceFee;
+	}
 	
 	
 }

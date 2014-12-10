@@ -117,5 +117,9 @@ public class Member {
 	public void setRoutingNumber(String routingNumber) {
 		this.routingNumber = routingNumber;
 	}
+	
+	public String toString() {
+		return memberNumber + "~" + fileName + "~" + name + "~" + address + "~" + city + "~" + state + "~" + zip + "~" + phoneNumber + "~" + emailStatus + "~" + accountNumber + "~" + routingNumber;
+	}
 
 }
