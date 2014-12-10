@@ -8,6 +8,8 @@ public class ServicesManager {
 	private IReader reader;
 	
 	public ServicesManager() {
+		//Since the reader is specific for a data model are generics really necessary for it?
+		//Also reader doesn't even seem to use the generic typing in its main method implementation
 		reader = new ServiceMgrFileReader<Service>();
 		load();
 	}
@@ -26,6 +28,7 @@ public class ServicesManager {
 	}
 	
 	public void load() {
+		//Reader returns an improper List<String> instead of List<Service>
 		serviceList = reader.readData();
 	}
 	

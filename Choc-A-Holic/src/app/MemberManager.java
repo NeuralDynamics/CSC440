@@ -9,6 +9,8 @@ public class MemberManager {
 	private IWriter writer;
 	
 	public MemberManager() {
+		//Since the reader and writer are specific for a data model are generics really necessary for them?
+		//Also reader doesn't even seem to use the generic typing in its main method implementation
 		reader = new MemMgrFileReader<Member>();
 		writer = new MemMgrFileWriter<Member>();
 		load();
@@ -28,6 +30,7 @@ public class MemberManager {
 	}
 	
 	public void save() {
+		//Reader returns an improper List<String> instead of List<Member>
 		writer.writeData(memList);
 	}
 	
