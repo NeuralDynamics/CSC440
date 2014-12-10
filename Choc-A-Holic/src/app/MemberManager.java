@@ -30,11 +30,12 @@ public class MemberManager {
 	}
 	
 	public void save() {
-		//Reader returns an improper List<String> instead of List<Member>
+		//Writer unsafely clears out list by calling remove() method on list for every item!
 		writer.writeData(memList);
 	}
 	
 	public void load() {
+		//Reader returns an improper List<String> instead of List<Member>
 		memList = reader.readData();
 	}
 	

@@ -24,7 +24,7 @@ public class ServicesManager {
 	}
 	
 	public void save() {
-		
+		//Nothing to save as there are no writers for this type
 	}
 	
 	public void load() {
