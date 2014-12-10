@@ -5,8 +5,14 @@ public class Service {
 	private long serviceCode;
 	private double serviceFee;
 	
+	public Service(String serviceName, long serviceCode, double serviceFee) {
+		this.serviceName = serviceName;
+		this.serviceCode = serviceCode;
+		this.serviceFee = serviceFee;
+	}
 	
-	
+	public Service() {
+	}
 	
 	public String getServiceName() {
 		return serviceName;

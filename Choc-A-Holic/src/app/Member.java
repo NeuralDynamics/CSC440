@@ -1,7 +1,7 @@
 package app;
 
 public class Member {
-	private String memberNumber;
+	private long memberNumber;
 	private String fileName;	//what is its purpose?
 	private String name;
 	private String address;
@@ -13,15 +13,28 @@ public class Member {
 	private String accountNumber;
 	private String routingNumber;
 	
-	public Member() {
-		
+	public Member(long memberNumber, String fileName, String name, String address, String city, String state, long zip, String phoneNumber, String emailStatus, String accountNumber, String routingNumber) {
+		this.memberNumber = memberNumber;
+		this.fileName = fileName;
+		this.name = name;
+		this.address = address;
+		this.city = city;
+		this.state = state;
+		this.zip = zip;
+		this.phoneNumber = phoneNumber;
+		this.emailStatus = emailStatus;
+		this.accountNumber = accountNumber;
+		this.routingNumber = routingNumber;
 	}
 
-	public String getMemberNumber() {
+	public Member() {
+	}
+
+	public long getMemberNumber() {
 		return memberNumber;
 	}
 
-	public void setMemberNumber(String memberNumber) {
+	public void setMemberNumber(long memberNumber) {
 		this.memberNumber = memberNumber;
 	}
 

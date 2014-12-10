@@ -1,18 +1,23 @@
 package app;
 
-import java.util.List;
+import java.util.*;
 
 public class ServicesManager {
-	private String filename;
-	private List<Service> ServiceList;
+	private String filename;	//what is its purpose?
+	private List<Service> serviceList;
 	private IReader reader;
 	
 	public ServicesManager() {
-		
+		reader = new ServiceMgrFileReader<Service>();
+		load();
 	}
 	
-	public Service findService(long ServCode) {
-		
+	public Service findService(long servCode) {
+		for (Service svc: serviceList) {
+			if (svc.getServiceCode() == servCode) {
+				return svc;
+			}
+		}
 		return null;
 	}
 	
@@ -21,7 +26,7 @@ public class ServicesManager {
 	}
 	
 	public void load() {
-		
+		serviceList = reader.readData();
 	}
 	
 }
