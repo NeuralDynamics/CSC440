@@ -1,8 +1,6 @@
 package app;
 
-import java.text.DateFormat;
 import java.text.NumberFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
@@ -20,11 +18,11 @@ public class RptProvider extends AReport {
 		// Allocate space for the queue
 		allocateQueue(2 + providedSvc.size());
 		
-		// Write out the Member Name
-		record += Misc.padRight(provider.getName(), 25).SubString(0, 25) + delimiter;
+		// Write out the Provider Name
+		record += Misc.padRight(provider.getName(), 25) + delimiter;
 				
-		// Write out the Member Number
-		record += String.format(Locale.US, "%09d", provider.getNumber());
+		// Write out the Provider Number
+		record += String.format(Locale.US, "%09d", provider.getProviderNumber());
 		
 		// Write out the Address
 		record += Misc.padRight(provider.getAddress(), 25) + delimiter;
@@ -55,7 +53,7 @@ public class RptProvider extends AReport {
 			record += dtFormat_Dt.format(ps.getDateOfService()) + delimiter;
 			
 			// Received Date/Time
-			record += dtFormat_DtTm.format(ps.getReceivedDate()) + delimiter;
+			record += dtFormat_DtTm.format(new Date()) + delimiter;
 			
 			// Member Name
 			record += Misc.padRight(ps.getMemberName(), 25) + delimiter;
@@ -63,10 +61,10 @@ public class RptProvider extends AReport {
 			// Write out the Member Number
 			record += String.format(Locale.US, "%09d", ps.getMemberNumber()) + delimiter;
 			
-			// Write out the Member Number
+			// Write out the Service Code
 			record += String.format(Locale.US, "%06d", ps.getServiceCode()) + delimiter;
 			
-			// Write out the Member Number
+			// Write out the Service Fee
 			record += String.format(Locale.US, "%06d", ps.getServiceFee());
 			totalFee += ps.getServiceFee();			
 			
