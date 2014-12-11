@@ -16,4 +16,7 @@ public interface IReport {
 	
 	public void addProviderService(ProvidedService ps);
 
+	public void setMemberManager(MemberManager m);
+	public void setServiceManager(ServicesManager m);
+	public void setProviderManager(ProviderManager m);
 }
