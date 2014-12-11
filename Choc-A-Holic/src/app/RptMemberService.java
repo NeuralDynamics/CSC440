@@ -21,19 +21,19 @@ public class RptMemberService extends AReport {
 		allocateQueue(1 + providedSvc.size());
 		
 		// Write out the Member Name
-		record += member.getName().PadRight(25).SubString(0, 25) + delimiter;
+		record += Misc.padRight(member.getName(), 25) + delimiter;
 				
 		// Write out the Member Number
 		record += String.format(Locale.US, "%09d", member.getNumber());
 		
 		// Write out the Address
-		record += member.getAddress().PadRight(25).SubString(0, 25) + delimiter;
+		record += Misc.padRight(member.getAddress(), 25) + delimiter;
 		
 		// Write out the City
-		record += member.getCity().PadRight(14).SubString(0, 14) + delimiter;
+		record += Misc.padRight(member.getCity(), 14) + delimiter;
 		
 		// Write out the State
-		record += member.getState().PadRight(2).SubString(0, 2) + delimiter;
+		record += Misc.padRight(member.getState(), 2) + delimiter;
 		
 		// Write out the Zip Code
 		record += String.format(Locale.US, "%09d", member.getZipCode());
@@ -49,13 +49,13 @@ public class RptMemberService extends AReport {
 			ProvidedService ps = providedSvc.poll();
 			
 			// Service Date
-			record += dtFormat_Dt.format(ps.getServiceDate()) + delimiter;
+			record += dtFormat_Dt.format(ps.getDateOfService()) + delimiter;
 			
 			// Provider Name
-			record += ps.getProviderName().PadRight(25).SubString(0,25) + delimiter;
+			record += Misc.padRight(ps.getProviderName(), 25) + delimiter;
 			
 			// Service Name
-			record += ps.getServiceName().PadRight(20).SubString(0,20);
+			record += Misc.padRight(ps.getServiceName(), 20);
 			
 			// Enqueue the record for output
 			enqueueRecord(record);

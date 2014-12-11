@@ -12,6 +12,27 @@ public class Controller {
 		mm = new MemberManager();
 		sm = new ServicesManager();
 		pm = new ProviderManager();
+		
+		// Load the Member Data
+		try {
+			mm.load();
+		} catch (Exception Ex) {
+			
+		}
+		
+		// Load the Service data
+		try {
+			sm.load();
+		} catch (Exception Ex) {
+			
+		}
+		
+		// Load the Provider data
+		try {
+			pm.load();
+		} catch (Exception Ex) {
+			
+		}
 	}
 	
 	public void save() {

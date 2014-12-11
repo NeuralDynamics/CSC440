@@ -21,22 +21,22 @@ public class RptProvider extends AReport {
 		allocateQueue(2 + providedSvc.size());
 		
 		// Write out the Member Name
-		record += provider.getName().PadRight(25).SubString(0, 25) + delimiter;
+		record += Misc.padRight(provider.getName(), 25).SubString(0, 25) + delimiter;
 				
 		// Write out the Member Number
 		record += String.format(Locale.US, "%09d", provider.getNumber());
 		
 		// Write out the Address
-		record += provider.getAddress().PadRight(25).SubString(0, 25) + delimiter;
+		record += Misc.padRight(provider.getAddress(), 25) + delimiter;
 		
 		// Write out the City
-		record += provider.getCity().PadRight(14).SubString(0, 14) + delimiter;
+		record += Misc.padRight(provider.getCity(), 14) + delimiter;
 		
 		// Write out the State
-		record += provider.getState().PadRight(2).SubString(0, 2) + delimiter;
+		record += Misc.padRight(provider.getState(), 2) + delimiter;
 		
 		// Write out the Zip Code
-		record += String.format(Locale.US, "%09d", provider.getZipCode());
+		record += String.format(Locale.US, "%09d", provider.getZip());
 		
 		// Enqueue the record
 		enqueueRecord(record);
@@ -52,13 +52,13 @@ public class RptProvider extends AReport {
 			ProvidedService ps = providedSvc.poll();
 			
 			// Service Date
-			record += dtFormat_Dt.format(ps.getServiceDate()) + delimiter;
+			record += dtFormat_Dt.format(ps.getDateOfService()) + delimiter;
 			
 			// Received Date/Time
 			record += dtFormat_DtTm.format(ps.getReceivedDate()) + delimiter;
 			
 			// Member Name
-			record += ps.getMemberName().PadRight(25).SubString(0,25) + delimiter;
+			record += Misc.padRight(ps.getMemberName(), 25) + delimiter;
 			
 			// Write out the Member Number
 			record += String.format(Locale.US, "%09d", ps.getMemberNumber()) + delimiter;
