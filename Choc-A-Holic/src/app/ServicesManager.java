@@ -14,10 +14,12 @@ public class ServicesManager {
 	}
 	
 	public void addService(Service svc) {
+		//Adds a service to the service list
 		serviceList.add(svc);
 	}
 	
 	public Service findService(long servCode) {
+		//Finds a service using a specified service code then returns it, otherwise returns null
 		for (Service svc: serviceList) {
 			if (svc.getServiceCode() == servCode) {
 				return svc;

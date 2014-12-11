@@ -14,10 +14,12 @@ public class MemberManager {
 	}
 	
 	public void addMember(Member m) {
+		//Adds a member to the member list
 		memList.add(m);
 	}
 	
 	public Member findMember(long memNum) {
+		//Finds a member using a specified member number then returns it, otherwise returns null
 		for (Member mbr: memList) {
 			if (mbr.getMemberNumber() == memNum) {
 				return mbr;
