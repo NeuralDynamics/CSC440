@@ -15,7 +15,6 @@ public class Member {
 	
 	public Member(long memberNumber, String name, String address, String city, String state, long zip, String phoneNumber, String emailStatus, String accountNumber, String routingNumber) {
 		this.memberNumber = memberNumber;
-		this.fileName = fileName;
 		this.name = name;
 		this.address = address;
 		this.city = city;
