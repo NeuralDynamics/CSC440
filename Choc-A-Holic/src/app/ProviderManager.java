@@ -29,22 +29,6 @@ public class ProviderManager {
 		this.provList = provList;
 	}
 
-	public IReader getReader() {
-		return reader;
-	}
-
-	public void setReader(IReader reader) {
-		this.reader = reader;
-	}
-
-	public IWriter getWriter() {
-		return writer;
-	}
-
-	public void setWriter(IWriter writer) {
-		this.writer = writer;
-	}
-
 	public void addProvider(Provider p){
 		provList.add(p);
 	}

@@ -28,22 +28,6 @@ public class ProvidedServiceManager {
 	public void setProvServList(List<ProvidedService> provServList) {
 		this.provServList = provServList;
 	}
-
-	public IReader getReader() {
-		return reader;
-	}
-
-	public void setReader(IReader reader) {
-		this.reader = reader;
-	}
-
-	public IWriter getWriter() {
-		return writer;
-	}
-
-	public void setWriter(IWriter writer) {
-		this.writer = writer;
-	}
 	
 	public void addProvidedService(ProvidedService p){
 		provServList.add(p);
