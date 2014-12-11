@@ -1,6 +1,9 @@
 package app;
 
-public class Member {
+import java.io.Serializable;
+
+public class Member implements Serializable {
+	private static final long serialVersionUID = -5376054535207365087L;
 	private long memberNumber;
 	private String fileName;	//what is its purpose?
 	private String name;

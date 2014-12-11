@@ -1,6 +1,9 @@
 package app;
 
-public class Service {
+import java.io.Serializable;
+
+public class Service implements Serializable {
+	private static final long serialVersionUID = 1790298713972987475L;
 	private String serviceName;
 	private long serviceCode;
 	private double serviceFee;

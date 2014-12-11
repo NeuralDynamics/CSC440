@@ -3,14 +3,12 @@ package app;
 import java.util.*;
 
 public class MemberManager {
-	private String filename = "MemMgrFile.txt";	//what is its purpose?
+	private static String filename = "MemMgrFile.txt";	//what is its purpose?
 	private List<Member> memList;
 	private IReader<List<Member>> reader;
 	private IWriter<List<Member>> writer;
 	
 	public MemberManager() {
-		//Since the reader and writer are specific for a data model are generics really necessary for them?
-		//Also reader doesn't even seem to use the generic typing in its main method implementation
 		reader = new FileReader<List<Member>>(filename);
 		writer = new FileWriter<List<Member>>(filename);
 		load();
@@ -30,13 +28,14 @@ public class MemberManager {
 	}
 	
 	public void save() {
-		//Writer unsafely clears out list by calling remove() method on list for every item!
+		//Saves member list to file
 		writer.writeData(memList);
 	}
 	
 	public void load() {
-		//Reader returns an improper List<String> instead of List<Member>
-		memList =  reader.readData();
+		//Tries to read member list from file, otherwise creates a new list
+		memList = reader.readData();
+		if (memList == null) memList = new ArrayList<Member>();
 	}
 	
 

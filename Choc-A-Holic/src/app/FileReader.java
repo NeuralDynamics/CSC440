@@ -1,8 +1,6 @@
 package app;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
+import java.io.*;
 
 public class FileReader<T> implements IReader<T>
 {
@@ -24,6 +22,11 @@ public class FileReader<T> implements IReader<T>
 	       obj = (T) in.readObject();
 	       in.close();
 	       fileIn.close();
+	    }
+	    catch(FileNotFoundException i)
+	    {
+	       i.printStackTrace();
+	       return null;
 	    }
 	    catch(IOException i)
 	    {

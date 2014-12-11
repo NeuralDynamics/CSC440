@@ -1,8 +1,6 @@
 package app;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.*;
 
 
 public class FileWriter<T> implements IWriter<T>
