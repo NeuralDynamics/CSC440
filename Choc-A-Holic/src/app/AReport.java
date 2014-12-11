@@ -19,9 +19,26 @@ public abstract class AReport implements IReport {
 	DateFormat dtFormat_DtTm = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
 	DateFormat dtFormat_Dt = new SimpleDateFormat("MM-dd-yyyy");
 	
+	MemberManager _memberMgr = null;
+	ServicesManager _serviceMgr = null;
+	ProviderManager _providerMgr = null;
+	
 	public AReport() {
 		providedSvc = new ArrayDeque<ProvidedService>();
 		recordQue = new ArrayDeque<String>();
+	}
+	
+	@Override
+	public void setMemberManager(MemberManager m){
+		_memberMgr = m;
+	}
+	@Override
+	public void setServiceManager(ServicesManager m){
+		_serviceMgr = m;
+	}
+	@Override
+	public void setProviderManager(ProviderManager m){
+		_providerMgr = m;
 	}
 	
 	@Override
