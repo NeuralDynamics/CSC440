@@ -5,7 +5,7 @@ import java.util.*;
 public class ServicesManager {
 	private String filename = "ServiceMgrFile.txt";	//what is its purpose?
 	private List<Service> serviceList;
-	private IReader reader;
+	private IReader<List<Service>> reader;
 	
 	public ServicesManager() {
 		//Since the reader is specific for a data model are generics really necessary for it?
@@ -29,7 +29,7 @@ public class ServicesManager {
 	
 	public void load() {
 		//Reader returns an improper List<String> instead of List<Service>
-		serviceList = (list<Service>)reader.readData();
+		serviceList = reader.readData();
 	}
 	
 }

@@ -5,8 +5,8 @@ import java.util.*;
 public class MemberManager {
 	private String filename = "MemMgrFile.txt";	//what is its purpose?
 	private List<Member> memList;
-	private IReader reader;
-	private IWriter writer;
+	private IReader<List<Member>> reader;
+	private IWriter<List<Member>> writer;
 	
 	public MemberManager() {
 		//Since the reader and writer are specific for a data model are generics really necessary for them?
@@ -36,7 +36,7 @@ public class MemberManager {
 	
 	public void load() {
 		//Reader returns an improper List<String> instead of List<Member>
-		memList =  (list<Member>)reader.readData();
+		memList =  reader.readData();
 	}
 	
 

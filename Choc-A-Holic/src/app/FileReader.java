@@ -32,7 +32,7 @@ public class FileReader<T> implements IReader<T>
 	    }
 	    catch(ClassNotFoundException c)
 	    {
-	       System.out.println("Employee class not found");
+	       System.out.println("class not found");
 	       c.printStackTrace();
 	       return null;
 	    }
