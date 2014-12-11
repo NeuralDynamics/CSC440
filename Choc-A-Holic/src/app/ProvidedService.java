@@ -14,6 +14,7 @@ public class ProvidedService implements Serializable {
 	private double serviceFee;
 	private long providerNumber;
 	private String providerName;
+	private String comments;
 	
 	public ProvidedService(Date dateOfService, Date dateTimeReceived, String memberName, long memberNumber, long serviceCode, double serviceFee, long providerNumber, String providerName){
 		this.dateOfService = dateOfService;
@@ -80,6 +81,14 @@ public class ProvidedService implements Serializable {
 	
 	public void setProviderNumber(long providerNumber) {
 		this.providerNumber = providerNumber;
+	}
+	
+	public String getComments() {
+		return comments;
+	}
+	
+	public void setComments(String comments) {
+		this.comments = comments;
 	}
 	
 	public String toString() {
