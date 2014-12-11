@@ -11,7 +11,6 @@ public class MemberManager {
 	public MemberManager() {
 		reader = new FileReader<List<Member>>(filename);
 		writer = new FileWriter<List<Member>>(filename);
-		load();
 	}
 	
 	public void addMember(Member m) {

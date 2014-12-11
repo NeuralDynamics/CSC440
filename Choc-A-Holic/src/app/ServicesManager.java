@@ -10,7 +10,7 @@ public class ServicesManager {
 	
 	public ServicesManager() {
 		reader = new FileReader<List<Service>>(filename);
-		load();
+		writer = new FileWriter<List<Service>>(filename);
 	}
 	
 	public void addService(Service svc) {
