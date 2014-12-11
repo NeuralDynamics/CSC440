@@ -6,8 +6,15 @@ public class Main {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		Controller c = new Controller();
+	
+		IUserInterface userInterface = new CommandLine();		
+		Controller ctrl = new Controller();
 		
-		c.initialize();		
+		userInterface.setMethodInvoker(ctrl);
+		ctrl.setUserInterface(userInterface);
+		
+		ctrl.test();
+		
+		//ctrl.initialize();
 	}
 }
