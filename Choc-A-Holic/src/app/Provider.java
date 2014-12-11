@@ -1,6 +1,9 @@
 package app;
 
-public class Provider {
+import java.io.Serializable;
+
+public class Provider implements Serializable {
+	private static final long serialVersionUID = 5255424007418446010L;
 	private long providerNumber;
 	private String name;
 	private String address;

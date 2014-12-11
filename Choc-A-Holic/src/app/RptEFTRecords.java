@@ -17,13 +17,13 @@ public class RptEFTRecords extends AReport {
 		output += dtFormat_DtTm.format(new Date()) + delimiter;
 		
 		// Write out the Date of the Service
-		output += dtFormat_Dt.format(providedSvc.getServiceDate()) + delimiter;
+		output += dtFormat_Dt.format(providedSvc.getDateOfService()) + delimiter;
 				
 		// Write out the Provider Number
-		output += String.format(Locale.US, "%09d", provider.getProviderNumber()) + delimiter;
+		output += String.format(Locale.US, "%09d", providedSvc.getProviderNumber()) + delimiter;
 		
 		// Write out the Member Number
-		output += String.format(Locale.US, "%09d", provider.getMemberNumber()) + delimiter;
+		output += String.format(Locale.US, "%09d", providedSvc.getMemberNumber()) + delimiter;
 		
 		// Write out the Member Number
 		output += String.format(Locale.US, "%06d", providedSvc.getServiceCode()) + delimiter;
@@ -31,7 +31,7 @@ public class RptEFTRecords extends AReport {
 		// Write out the Comments
 		output += providedSvc.getComments().PadRight(100).SubString(0, 100);
 		
-		// Queue up the record		
+		// Queue up the record
 		enqueueRecord(output);
 	}
 }
