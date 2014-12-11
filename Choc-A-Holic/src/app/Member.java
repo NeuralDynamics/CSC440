@@ -119,7 +119,7 @@ public class Member {
 	}
 	
 	public String toString() {
-		return memberNumber + "~" + fileName + "~" + name + "~" + address + "~" + city + "~" + state + "~" + zip + "~" + phoneNumber + "~" + emailStatus + "~" + accountNumber + "~" + routingNumber;
+		return memberNumber + "~" + name + "~" + address + "~" + city + "~" + state + "~" + zip + "~" + phoneNumber + "~" + emailStatus + "~" + accountNumber + "~" + routingNumber;
 	}
 	
 	//Methods called from RptMemberService class
