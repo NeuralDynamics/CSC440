@@ -3,7 +3,7 @@ package app;
 import java.util.*;
 
 public class ServicesManager {
-	private  static String filename = "ServiceMgrFile.txt";
+	private static String filename = "ServiceMgrFile.txt";
 	private List<Service> serviceList;
 	private IReader<List<Service>> reader;
 	private IWriter<List<Service>> writer;
@@ -26,6 +26,10 @@ public class ServicesManager {
 			}
 		}
 		return null;
+	}
+	
+	public List<Service> getServiceList() {
+		return serviceList;
 	}
 	
 	public void save() {
