@@ -13,7 +13,7 @@ public class Member {
 	private String accountNumber;
 	private String routingNumber;
 	
-	public Member(long memberNumber, String fileName, String name, String address, String city, String state, long zip, String phoneNumber, String emailStatus, String accountNumber, String routingNumber) {
+	public Member(long memberNumber, String name, String address, String city, String state, long zip, String phoneNumber, String emailStatus, String accountNumber, String routingNumber) {
 		this.memberNumber = memberNumber;
 		this.fileName = fileName;
 		this.name = name;
