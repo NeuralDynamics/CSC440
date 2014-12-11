@@ -5,8 +5,8 @@ import java.util.*;
 public class ProvidedServiceManager {
 	private String fileName;
 	private List<ProvidedService> provServList;
-	private IReader reader;
-	private IWriter writer;
+	private IReader<List<ProvidedService>> reader;
+	private IWriter<List<ProvidedService>> writer;
 	
 	public ProvidedServiceManager(){
 		reader = new FileReader<List<ProvidedService>>(fileName);

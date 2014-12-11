@@ -11,6 +11,7 @@ public class FileReader<T> implements IReader<T>
 		this.fileName = fileName;
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public T readData() 
 	{
