@@ -1,14 +1,6 @@
 package app;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Locale;
-import java.util.Queue;
 
 public class RptMemberService extends AReport {
 
@@ -48,14 +40,19 @@ public class RptMemberService extends AReport {
 			record = "";
 			ProvidedService ps = providedSvc.poll();
 			
+			// Load the Provider
+			Provider p = _providerMgr.findProvider(ps.getProviderNumber());
+			
+			Service s = _serviceMgr.findService(ps.getServiceCode());
+			
 			// Service Date
 			record += dtFormat_Dt.format(ps.getDateOfService()) + delimiter;
 			
 			// Provider Name
-			record += Misc.padRight(ps.getProviderName(), 25) + delimiter;
+			record += Misc.padRight(p.getName(), 25) + delimiter;
 			
 			// Service Name
-			record += Misc.padRight(ps.getServiceName(), 20);
+			record += Misc.padRight(s.getServiceName(), 20);
 			
 			// Enqueue the record for output
 			enqueueRecord(record);
