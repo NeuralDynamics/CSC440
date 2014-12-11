@@ -1,11 +1,33 @@
 package app;
 
-public class Controller {
+import java.util.Date;
+
+public class Controller extends AMethodInvoker {
 	
 	private MemberManager mm = null;
 	private ServicesManager sm = null;
 	private ProviderManager pm = null;
 	private ProvidedServiceManager psm = null;
+	
+	private IUserInterface userInterface = null;
+	
+	public void setUserInterface(IUserInterface userInterface) {
+		this.userInterface = userInterface;
+	}
+	
+	// Sample Output
+	public void test() {
+		userInterface.addMessageLine("Option 1");
+		userInterface.addMessageLine("Option 2");
+		userInterface.addMessageLine("Option 3");
+		userInterface.displayMsg("testCall", String.class, 10);
+	}
+	
+	public void testCall(String input) {
+		// Success!!!
+		// Now we need to do something with the input value....
+		System.out.println(input);
+	}
 	
 	public void initialize() {
 		
