@@ -5,6 +5,7 @@ public class Controller {
 	private MemberManager mm = null;
 	private ServicesManager sm = null;
 	private ProviderManager pm = null;
+	private ProvidedServiceManager psm = null;
 	
 	public void initialize() {
 		
@@ -12,6 +13,7 @@ public class Controller {
 		mm = new MemberManager();
 		sm = new ServicesManager();
 		pm = new ProviderManager();
+		psm = new ProvidedServiceManager();
 		
 		// Load the Member Data
 		try {
@@ -30,6 +32,13 @@ public class Controller {
 		// Load the Provider data
 		try {
 			pm.load();
+		} catch (Exception Ex) {
+			
+		}
+		
+		// Load the ProvidedService data
+		try {
+			psm.load();
 		} catch (Exception Ex) {
 			
 		}
@@ -52,6 +61,12 @@ public class Controller {
 			pm.save();
 		} catch (Exception Ex) {
 			System.out.println("Error saving Provider Data");
+		}
+		
+		try {
+			psm.save();
+		} catch (Exception Ex) {
+			System.out.println("Error saving ProvidedService Data");
 		}
 	}
 }
