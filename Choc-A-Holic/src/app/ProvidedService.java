@@ -1,7 +1,8 @@
 package app;
+import java.io.Serializable;
 import java.util.*;
-public class ProvidedService {
-
+public class ProvidedService implements Serializable {
+	private static final long serialVersionUID = -6748274577370518763L;
 	private Date dateOfService;
 	private Date dateTimeReceived;
 	private String memberName;
