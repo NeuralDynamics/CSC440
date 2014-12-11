@@ -3,14 +3,14 @@ package app;
 import java.util.*;
 
 public class ServicesManager {
-	private String filename;	//what is its purpose?
+	private String filename = "ServiceMgrFile.txt";	//what is its purpose?
 	private List<Service> serviceList;
 	private IReader reader;
 	
 	public ServicesManager() {
 		//Since the reader is specific for a data model are generics really necessary for it?
 		//Also reader doesn't even seem to use the generic typing in its main method implementation
-		reader = new ServiceMgrFileReader<Service>();
+		reader = new FileReader<List<Service>>(filename);
 		load();
 	}
 	
@@ -29,7 +29,7 @@ public class ServicesManager {
 	
 	public void load() {
 		//Reader returns an improper List<String> instead of List<Service>
-		serviceList = reader.readData();
+		serviceList = (list<Service>)reader.readData();
 	}
 	
 }
