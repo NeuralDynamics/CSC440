@@ -22,7 +22,7 @@ public class Test_MemberManagement {
 	@Test
 	public void testAddMember() {
 		mm.load();
-		mm.addMember(new Member(131313131, "Josh Sommerfeld", "717 Arcadian Ave", "Waukesha", "WI", 53186, "2624085097", "oooo", "1564654", "456456"));
+		mm.addMember(new Member(131313131, "Josh Sommerfeld", "717 Arcadian Ave", "Waukesha", "WI", 53186, "2624085097", "oooo"));
 		Member mem = mm.findMember(131313131);
 		assertNotNull(mem);
 		assertTrue(mem.getName().equals("Josh Sommerfeld"));

@@ -9,6 +9,7 @@ public class MemberManager {
 	private IWriter<List<Member>> writer;
 	
 	public MemberManager() {
+		memList = new ArrayList<Member>();
 		reader = new FileReader<List<Member>>(filename);
 		writer = new FileWriter<List<Member>>(filename);
 	}
@@ -39,5 +40,9 @@ public class MemberManager {
 		if (memList == null) memList = new ArrayList<Member>();
 	}
 	
-
+	public void display(){
+		for (Member mbr: memList) {
+			System.out.println(mbr.toString());
+		}
+	}
 }

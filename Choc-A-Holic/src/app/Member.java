@@ -12,12 +12,10 @@ public class Member implements Serializable {
 	private String state;
 	private long zip;	//Shouldn't this be a String??
 	private String phoneNumber;
-	private String emailStatus;
-	private String accountNumber;
-	private String routingNumber;
+	private String email;
 	private boolean isSuspended = false;
 	
-	public Member(long memberNumber, String name, String address, String city, String state, long zip, String phoneNumber, String emailStatus, String accountNumber, String routingNumber) {
+	public Member(long memberNumber, String name, String address, String city, String state, long zip, String phoneNumber, String email) {
 		this.memberNumber = memberNumber;
 		this.name = name;
 		this.address = address;
@@ -25,9 +23,7 @@ public class Member implements Serializable {
 		this.state = state;
 		this.zip = zip;
 		this.phoneNumber = phoneNumber;
-		this.emailStatus = emailStatus;
-		this.accountNumber = accountNumber;
-		this.routingNumber = routingNumber;
+		this.email = email;
 	}
 
 	public Member() {
@@ -97,32 +93,16 @@ public class Member implements Serializable {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public String getEmailStatus() {
-		return emailStatus;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setEmailStatus(String emailStatus) {
-		this.emailStatus = emailStatus;
-	}
-
-	public String getAccountNumber() {
-		return accountNumber;
-	}
-
-	public void setAccountNumber(String accountNumber) {
-		this.accountNumber = accountNumber;
-	}
-
-	public String getRoutingNumber() {
-		return routingNumber;
-	}
-
-	public void setRoutingNumber(String routingNumber) {
-		this.routingNumber = routingNumber;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	
 	public String toString() {
-		return memberNumber + "~" + name + "~" + address + "~" + city + "~" + state + "~" + zip + "~" + phoneNumber + "~" + emailStatus + "~" + accountNumber + "~" + routingNumber;
+		return memberNumber + "~" + name + "~" + address + "~" + city + "~" + state + "~" + zip + "~" + phoneNumber + "~" + email + "~" + isSuspended;
 	}
 	
 	//Methods called from RptMemberService class
