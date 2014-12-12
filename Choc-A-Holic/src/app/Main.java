@@ -17,8 +17,8 @@ public class Main {
 		
 		/*ctrl.test();*/
 		
-		IUserInterface ui = new CmdLnInterface();
-		IController ctrl2 = new CmdLnController();
+		IUserInterface ui = new CmdLnUI();
+		IController ctrl2 = new Controller();
 		
 		ui.setMethodInvoker(ctrl2);
 		ctrl2.setUserInterface(ui);

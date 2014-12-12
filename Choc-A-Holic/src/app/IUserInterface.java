@@ -1,7 +1,5 @@
 package app;
 
-import java.lang.reflect.Type;
-
 public interface IUserInterface {
 	/**
 	 * @param Message

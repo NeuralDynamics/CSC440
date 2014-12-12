@@ -2,6 +2,7 @@ package app;
 
 public abstract class MenuSystem extends AMethodInvoker implements IController {
 	private IUserInterface _userInterface = null;
+	private static String QUALIFIER = "***";
 	
 	protected void displayMsg(String methodName, Class<?> cls, int maxCharCount) {
 		_userInterface.displayMsg(methodName, cls, maxCharCount);
@@ -20,69 +21,82 @@ public abstract class MenuSystem extends AMethodInvoker implements IController {
 	// Main Menu
 	public void displayMenu_LogInProvider() {
 		_userInterface.addMessageLine("Welcome to Choc-An-Holics!");
-		_userInterface.addMessageLine("Please your Provider Number");
+		_userInterface.addMessageLine("Please your Provider Number or 'q' to Quit:");
+		addDivider();
 	}
 
 	// Provider Menu
 	public void displayMenu_Provider() {
-		_userInterface.addMessageLine("Select an option below");
+		_userInterface.addMessageLine("Select an option below:");
 		_userInterface.addMessageLine("1: Log in Member");
 		_userInterface.addMessageLine("2: Log Service");
 		_userInterface.addMessageLine("3: Run Report");
+		_userInterface.addMessageLine("q: Quit");
+		addDivider();
 	}
 
 	// Report Menu
 	public void displayMenu_Report() {
-		_userInterface.addMessageLine("Select an option below");
+		_userInterface.addMessageLine("Select an option below:");
 		_userInterface.addMessageLine("1: Provider Report");
 		_userInterface.addMessageLine("2: Member Report");
 		_userInterface.addMessageLine("3: Available Services Report");
 		_userInterface.addMessageLine("4: EFT Record Report");
+		_userInterface.addMessageLine("q: Quit");
+		addDivider();
 	}
 
 	// Log In Member
 	public void displayMenu_LogInMember() {
-		_userInterface.addMessageLine("Please enter the Member Number");
+		_userInterface.addMessageLine("Please enter the Member Number (Max 9 Numbers) or 'q' to quit:");
+		addDivider();
 	}
 
 	// Log Service Menu - Steps 1-3
 	public void displayMenu_LogService1() {
-		_userInterface.addMessageLine("Please enter the Member Number");
+		_userInterface.addMessageLine("Please enter the Member Number (Max 9 Numbers) or 'q' to quit:");
+		addDivider();
 	}
 
 	public void displayMenu_LogService2() {
-		_userInterface.addMessageLine("Please enter the Service Code");
+		_userInterface.addMessageLine("Please enter the Service Code (Max 6 Numbers) or 'q' to quit:");
+		addDivider();
 	}
 
 	public void displayMenu_LogService3() {
-		_userInterface.addMessageLine("Please enter the Service Date");
+		_userInterface.addMessageLine("Please enter the Service Date (yyyy-DD-MM Format) or 'q' to quit:");
+		addDivider();
 	}
 	
 	public void displayMenu_ServiceLogged() {
-		_userInterface.addMessageLine("Service has been logged");
+		_userInterface.addMessageLine(QUALIFIER + " Service has been Logged " + QUALIFIER);
 	}
 	
 	public void display_MemberValid() {
-		_userInterface.addMessageLine("Validated");
+		_userInterface.addMessageLine(QUALIFIER + " Validated " + QUALIFIER);
 	}
 	
 	public void display_MemberInvalid() {
-		_userInterface.addMessageLine("Invalid Member Number!");
+		_userInterface.addMessageLine(QUALIFIER + " Invalid Member Number " + QUALIFIER);
 	}
 	
 	public void display_MemberSuspended() {
-		_userInterface.addMessageLine("Member is Suspended");
+		_userInterface.addMessageLine(QUALIFIER + " Member is Suspended " + QUALIFIER);
 	}
 	
 	public void display_MemberNotLoggedIn() {
-		_userInterface.addMessageLine("A Member has not been logged in.");
+		_userInterface.addMessageLine(QUALIFIER + " A Member has not been Logged In " + QUALIFIER);
 	}
 	
 	public void display_ProviderNotValid() {
-		_userInterface.addMessageLine("Invalid Provider Number.");
+		_userInterface.addMessageLine(QUALIFIER + " Invalid Provider Number " + QUALIFIER);
 	}
 	
 	public void display_InvalidServiceCode() {
-		_userInterface.addMessageLine("Invalid Service Code.");
+		_userInterface.addMessageLine(QUALIFIER + " Invalid Service Code " + QUALIFIER);
+	}
+	
+	protected void addDivider() {
+		_userInterface.addMessageLine("----------------------------");
 	}
 }
