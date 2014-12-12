@@ -1,5 +1,6 @@
 package app;
 
+import java.io.IOException;
 import java.util.Date;
 
 public class CmdLnController extends AController {
@@ -17,7 +18,7 @@ public class CmdLnController extends AController {
 	@Override
 	protected void initialize() {
 		_continue = true;
-		//super.initialize();
+		super.initialize();
 	}
 
 	protected void processQuit(String methodToQuitTo) {
@@ -29,21 +30,20 @@ public class CmdLnController extends AController {
 		methodToCall = null;
 	}
 
-	protected boolean checkQuitToMethod() {
+	protected boolean quitNow() {
 		// Get the method name in the 2nd position in the array (this counts as a method)
 		String methodName = Thread.currentThread().getStackTrace()[2].getMethodName();
 		
-		if (quitToMethod == null) { return true; }
+		// If null, then don't quit this method
+		if (quitToMethod == null) { return false; }
 		
-		//if (quitToMethod == null || quitToMethod.equals(methodName)) {
 		if (quitToMethod.equals(methodName)) {
 			// Since we have reached the method we need to quit to, reset this value
 			quitToMethod  = null;
 
 			return false;
-		}		
-
-		// We have not yet reached the method in question
+		}
+		
 		return true;
 	}
 
@@ -62,7 +62,7 @@ public class CmdLnController extends AController {
 			}
 
 			// If there is a method we need to quit to, and we have not yet reached it, continue breaking
-			if (checkQuitToMethod() == false) { break; }
+			if (quitNow()) { break; }
 		}
 	
 		_continue = true;
@@ -99,7 +99,7 @@ public class CmdLnController extends AController {
 			}
 
 			// If there is a method we need to quit to, and we have not yet reached it, continue breaking
-			if (checkQuitToMethod() == false) { break; }
+			if (quitNow()) { break; }
 		}
 
 		_continue = true;
@@ -110,7 +110,7 @@ public class CmdLnController extends AController {
 		resetSelectedOption();
 
 		// Determine if we need to quit this menu
-		if (quit) { processQuit(null); return; }
+		if (quit) { processQuit("menu_LogInProvider"); return; }
 
 		// Determine which option to call
 		switch (option) {
@@ -141,7 +141,7 @@ public class CmdLnController extends AController {
 			}
 
 			// If there is a method we need to quit to, and we have not yet reached it, continue breaking
-			if (checkQuitToMethod() == false) { break; }
+			if (quitNow()) { break; }
 		}
 	
 		_continue = true;
@@ -152,7 +152,7 @@ public class CmdLnController extends AController {
 		resetSelectedOption();
 
 		// Determine if we need to quit this menu
-		if (quit) { processQuit(null); return; }
+		if (quit) { processQuit("menu_Provider"); return; }
 
 		// Validate the provider ID (if invalid notify the user)
 		if (ValidateMemberNumber(MemberID) == false) {
@@ -177,7 +177,7 @@ public class CmdLnController extends AController {
 			}
 
 			// If there is a method we need to quit to, and we have not yet reached it, continue breaking
-			if (checkQuitToMethod() == false) { break; }
+			if (quitNow()) { break; }
 		}
 
 		_continue = true;
@@ -199,7 +199,7 @@ public class CmdLnController extends AController {
 	public void menu_LogService_Step2() {
 		while (_continue) {
 			displayMenu_LogService2();
-			_userInterface.displayMsg("processInput_LogService_Step2", Date.class, 9);
+			_userInterface.displayMsg("processInput_LogService_Step2", Date.class, 10);
 
 			// If the method to call is not null, then call it now
 			if (methodToCall != null) {
@@ -207,7 +207,7 @@ public class CmdLnController extends AController {
 			}
 
 			// If there is a method we need to quit to, and we have not yet reached it, continue breaking
-			if (checkQuitToMethod() == false) { break; }
+			if (quitNow()) { break; }
 		}
 
 		_continue = true;
@@ -237,7 +237,7 @@ public class CmdLnController extends AController {
 			}
 
 			// If there is a method we need to quit to, and we have not yet reached it, continue breaking
-			if (checkQuitToMethod() == false) { break; }
+			if (quitNow()) { break; }
 		}
 
 		_continue = true;
@@ -255,6 +255,15 @@ public class CmdLnController extends AController {
 			methodToCall = "menu_ServiceLogged";
 		}
 	}
+	
+	/****************************************************
+	 * Menu - Report
+	 * Report Menu Options
+	****************************************************/
+	public void menu_ServiceLogged() {
+		displayMenu_ServiceLogged();
+		processQuit("menu_Provider");	
+	}
 
 	/****************************************************
 	 * Menu - Report
@@ -263,7 +272,7 @@ public class CmdLnController extends AController {
 	public void menu_Report() {
 		while (_continue) {
 			displayMenu_Report();
-			_userInterface.displayMsg("processInput_Report", int.class, 9);
+			_userInterface.displayMsg("processInput_Report", int.class, 1);
 
 			// If the method to call is not null, then call it now
 			if (methodToCall != null) {
@@ -271,7 +280,7 @@ public class CmdLnController extends AController {
 			}
 
 			// If there is a method we need to quit to, and we have not yet reached it, continue breaking
-			if (checkQuitToMethod() == false) { break; }
+			if (quitNow()) { break; }
 		}
 
 		_continue = true;
@@ -301,37 +310,84 @@ public class CmdLnController extends AController {
 		}
 	}
 	
+	public void runReportProvider() throws ReportNotFoundException, IOException {
+		IReport rpt = ReportFactory.createReport("Provider", _member, _provider);
+		rpt.runReport("ProviderReport.txt");
+	}
+	
+	public void runReportMember() throws ReportNotFoundException, IOException {
+		IReport rpt = ReportFactory.createReport("MemberService", _member, _provider);
+		rpt.runReport("MemberServiceReport.txt");
+	}
+	
+	public void runReportServices() throws ReportNotFoundException, IOException {
+		IReport rpt = ReportFactory.createReport("Services", _member, _provider);
+		rpt.runReport("ServicesReport.txt");
+	}
+	
+	public void runReportEFT() throws ReportNotFoundException, IOException {
+		IReport rpt = ReportFactory.createReport("EFTRecords", _member, _provider);
+		rpt.runReport("EFTRecordsReport.txt");
+	}
+	
 	private boolean ValidateProviderID(long providerID) {
-		// TODO Auto-generated method stub
-		/*_provider = _providerMgr.findProvider(providerID);
+		_provider = _providerMgr.findProvider(providerID);
 		
 		// If the provider is NULL let the user know they weren't found
 		if (_provider == null) {
 			_userInterface.addMessageLine("Invalid Provider Number!");
 			return false;
-		}*/
+		}
 		
 		return true;
 	}
 	
 	private boolean LogServiceCode(long serviceCode) {
-		// TODO Auto-generated method stub
-		return false;
+		// Make sure a valid Member Number has been entered (should never be seen!)
+		if (_providedService == null) {
+			_userInterface.addMessageLine("A valid Member Number has not been entered!");
+			return false;
+		}
+		
+		// Find the Service by Service Code
+		_service = _serviceMgr.findService(serviceCode);
+		
+		if (_service == null) {
+			_userInterface.addMessageLine("Invalid Service Code!");
+			return false;
+		}
+		
+		// Set the properties of the provided service
+		_providedService.setServiceCode(serviceCode);
+		_providedService.setServiceFee(_service.getServiceFee());
+		_providedService.setMemberNumber(_member.getMemberNumber());
+		_providedService.setMemberName(_member.getName());
+		_providedService.setProviderNumber(_provider.getProviderNumber());
+		_providedService.setDateTimeReceived(new Date());
+		return true;
 	}
 	
 	private boolean LogServiceDate(Date serviceDate) {
-		// TODO Auto-generated method stub
-		return false;
+		// Make sure a valid Member Number has been entered (should never be seen!)
+		if (_providedService == null) {
+			_userInterface.addMessageLine("A valid Member Number has not been entered!");
+			return false;
+		}
+		
+		// Set the Date of Service
+		_providedService.setDateOfService(serviceDate);
+		return true;
 	}
 	
 	private boolean ValidateMemberNumber(long memberNumber) {
-		// TODO Auto-generated method stub
-		/*_member = _memberMgr.findMember(memberNumber);
+		// Find Member by Member Number
+		_member = _memberMgr.findMember(memberNumber);
 		
+		// Notify the user the member was not found
 		if (_member == null) {
 			_userInterface.addMessageLine("Invalid Member Number!");
 			return false;
-		}*/
+		}
 		
 		return true;
 	}

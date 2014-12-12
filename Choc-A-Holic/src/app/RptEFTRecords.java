@@ -10,6 +10,10 @@ public class RptEFTRecords extends AReport {
 
 		// Allocate space for the queue
 		allocateQueue(1);
+		
+		// Loop through and find all matching Provided Services
+		// FLAG
+		/*
 		// Loop through all of the Provided Service records
 		while (providedSvc.isEmpty() == false) {
 			
@@ -37,6 +41,6 @@ public class RptEFTRecords extends AReport {
 		}
 		
 		// Queue up the record
-		enqueueRecord(output);
+		enqueueRecord(output);*/
 	}
 }

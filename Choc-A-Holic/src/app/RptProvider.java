@@ -13,8 +13,11 @@ public class RptProvider extends AReport {
 		int recCount = 0;
 		NumberFormat formatter = NumberFormat.getCurrencyInstance();
 		
-		String record = "";		
+		String record = "";
 		
+		// Loop through and find all matching Provided Services
+		// FLAG
+		/*
 		// Allocate space for the queue
 		allocateQueue(2 + providedSvc.size());
 		
@@ -76,6 +79,6 @@ public class RptProvider extends AReport {
 		record = "";
 		record += formatter.format(totalFee) + delimiter;
 		record += record += String.format(Locale.US, "%03d", recCount);
-		enqueueRecord(record);
+		enqueueRecord(record);*/
 	}
 }

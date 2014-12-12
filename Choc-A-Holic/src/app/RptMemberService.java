@@ -9,6 +9,9 @@ public class RptMemberService extends AReport {
 		
 		String record = "";		
 		
+		// Loop through and find all matching Provided Services
+		// FLAG
+		/*
 		// Allocate space for the queue
 		allocateQueue(1 + providedSvc.size());
 		
@@ -56,6 +59,6 @@ public class RptMemberService extends AReport {
 			
 			// Enqueue the record for output
 			enqueueRecord(record);
-		}
+		}*/
 	}
 }

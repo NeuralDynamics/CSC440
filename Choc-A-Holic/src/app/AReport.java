@@ -13,7 +13,6 @@ public abstract class AReport implements IReport {
 	String delimiter = "|";
 	Member member = null;
 	Provider provider = null;
-	Queue<ProvidedService> providedSvc = null;
 	Queue<String> recordQue = null;
 	
 	DateFormat dtFormat_DtTm = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
@@ -22,9 +21,9 @@ public abstract class AReport implements IReport {
 	MemberManager _memberMgr = null;
 	ServicesManager _serviceMgr = null;
 	ProviderManager _providerMgr = null;
+	ProvidedServiceManager _providedServiceMgr = null;
 	
 	public AReport() {
-		providedSvc = new ArrayDeque<ProvidedService>();
 		recordQue = new ArrayDeque<String>();
 	}
 	
@@ -39,6 +38,10 @@ public abstract class AReport implements IReport {
 	@Override
 	public void setProviderManager(ProviderManager m){
 		_providerMgr = m;
+	}
+	@Override
+	public void setProvidedServiceManager(ProvidedServiceManager m) {
+		_providedServiceMgr = m;
 	}
 	
 	@Override
@@ -64,18 +67,13 @@ public abstract class AReport implements IReport {
 	}	
 
 	@Override
-	public void setMemeber(Member m) {
+	public void setMember(Member m) {
 		member = m;
 	}
 
 	@Override
 	public void setProvider(Provider p) {
 		provider = p;
-	}
-
-	@Override
-	public void addProviderService(ProvidedService ps) {		
-		providedSvc.add(ps);
 	}
 	
 	protected abstract void buildRecords();

@@ -53,4 +53,8 @@ public abstract class MenuSystem extends AMethodInvoker implements IController {
 	public void displayMenu_LogService3() {
 		_userInterface.addMessageLine("Please enter the Service Code");
 	}
+	
+	public void displayMenu_ServiceLogged() {
+		_userInterface.addMessageLine("Service has been logged");
+	}
 }

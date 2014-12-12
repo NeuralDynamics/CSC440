@@ -1,7 +1,28 @@
 package app;
 
 public final class ReportFactory {
-	public final IReport createReport(String reportType, MemberManager memMgr, ServicesManager svcMgr, ProviderManager prvMgr) throws ReportNotFoundException {
+	protected static MemberManager _memberMgr = null;
+	protected static ServicesManager _servicesMgr = null;
+	protected static ProviderManager _providerManager = null;
+	protected static ProvidedServiceManager _providedServiceMgr = null;
+	
+	public static void setMemberManager(MemberManager memberMgr) {
+		_memberMgr = memberMgr;
+	}
+	
+	public static void setServicesManager(ServicesManager servicesMgr) {
+		_servicesMgr = servicesMgr;
+	}
+	
+	public static void setProviderManager(ProviderManager providerManager) {
+		_providerManager = providerManager;
+	}
+	
+	public static void setProvidedServiceMgr(ProvidedServiceManager providedServiceMgr) {
+		_providedServiceMgr = providedServiceMgr;
+	}
+	
+	public static IReport createReport(String reportType, Member member, Provider provider) throws ReportNotFoundException {
 		IReport rpt = null;
 		
 		switch(reportType) {
@@ -21,9 +42,14 @@ public final class ReportFactory {
 		}
 		
 		// Set the managers
-		rpt.setMemberManager(memMgr);
-		rpt.setProviderManager(prvMgr);
-		rpt.setServiceManager(svcMgr);
+		rpt.setMemberManager(_memberMgr);
+		rpt.setProviderManager(_providerManager);
+		rpt.setServiceManager(_servicesMgr);
+		rpt.setProvidedServiceManager(_providedServiceMgr);
+		
+		// Set the Member/Provider instances
+		rpt.setMember(member);
+		rpt.setProvider(provider);
 		
 		// Return the report
 		return rpt;
