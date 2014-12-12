@@ -2,7 +2,7 @@ package app;
 
 import java.util.Date;
 
-public class CmdLnController extends MenuSystem {
+public class CmdLnController extends AController {
 	
 	boolean _continue;
 	String methodToCall = null;
@@ -14,8 +14,10 @@ public class CmdLnController extends MenuSystem {
 		menu_LogInProvider();
 	}
 	
+	@Override
 	protected void initialize() {
 		_continue = true;
+		//super.initialize();
 	}
 
 	protected void processQuit(String methodToQuitTo) {
@@ -31,7 +33,10 @@ public class CmdLnController extends MenuSystem {
 		// Get the method name in the 2nd position in the array (this counts as a method)
 		String methodName = Thread.currentThread().getStackTrace()[2].getMethodName();
 		
-		if (quitToMethod == null || quitToMethod.equals(methodName)) {
+		if (quitToMethod == null) { return true; }
+		
+		//if (quitToMethod == null || quitToMethod.equals(methodName)) {
+		if (quitToMethod.equals(methodName)) {
 			// Since we have reached the method we need to quit to, reset this value
 			quitToMethod  = null;
 
@@ -49,7 +54,7 @@ public class CmdLnController extends MenuSystem {
 	public void menu_LogInProvider() {
 		while (_continue) {
 			displayMenu_LogInProvider();
-			userInterface.displayMsg("processInput_LogInProvider", long.class, 9);
+			_userInterface.displayMsg("processInput_LogInProvider", long.class, 9);
 	
 			// If the method to call is not null, then call it now
 			if (methodToCall != null) {
@@ -72,7 +77,7 @@ public class CmdLnController extends MenuSystem {
 
 		// Validate the provider ID (if invalid notify the user)
 		if (ValidateProviderID(ProviderID) == false) {
-			userInterface.addMessageLine("Invalid Provider Number!");
+			_userInterface.addMessageLine("Invalid Provider Number!");
 			return;
 		}
 
@@ -86,7 +91,7 @@ public class CmdLnController extends MenuSystem {
 	public void menu_Provider() {
 		while (_continue) {
 			displayMenu_Provider();
-			userInterface.displayMsg("processInput_Provider", int.class, 9);
+			_userInterface.displayMsg("processInput_Provider", int.class, 9);
 
 			// If the method to call is not null, then call it now
 			if (methodToCall != null) {
@@ -120,6 +125,42 @@ public class CmdLnController extends MenuSystem {
 				break;
 		}
 	}
+	
+	/****************************************************
+	 * Menu - Log In Provider
+	 * Welcome Message & Provider Log In Prompt
+	****************************************************/
+	public void menu_LogInMember() {
+		while (_continue) {
+			displayMenu_LogInMember();
+			_userInterface.displayMsg("processInput_LogInMember", long.class, 9);
+	
+			// If the method to call is not null, then call it now
+			if (methodToCall != null) {
+				callMethod(methodToCall);
+			}
+
+			// If there is a method we need to quit to, and we have not yet reached it, continue breaking
+			if (checkQuitToMethod() == false) { break; }
+		}
+	
+		_continue = true;
+	}
+	
+	public void processInput_LogInMember(long MemberID, boolean quit) {
+		// Reset the Option Chosen
+		resetSelectedOption();
+
+		// Determine if we need to quit this menu
+		if (quit) { processQuit(null); return; }
+
+		// Validate the provider ID (if invalid notify the user)
+		if (ValidateMemberNumber(MemberID) == false) {
+			return;
+		}
+
+		methodToCall = "menu_Provider";
+	}
 
 	/****************************************************
 	 * Menu - Log Service
@@ -128,7 +169,7 @@ public class CmdLnController extends MenuSystem {
 	public void menu_LogService() {
 		while (_continue) {
 			displayMenu_LogService1();
-			userInterface.displayMsg("processInput_LogService", long.class, 9);
+			_userInterface.displayMsg("processInput_LogService", long.class, 9);
 
 			// If the method to call is not null, then call it now
 			if (methodToCall != null) {
@@ -158,7 +199,7 @@ public class CmdLnController extends MenuSystem {
 	public void menu_LogService_Step2() {
 		while (_continue) {
 			displayMenu_LogService2();
-			userInterface.displayMsg("processInput_LogService_Step2", Date.class, 9);
+			_userInterface.displayMsg("processInput_LogService_Step2", Date.class, 9);
 
 			// If the method to call is not null, then call it now
 			if (methodToCall != null) {
@@ -188,7 +229,7 @@ public class CmdLnController extends MenuSystem {
 	public void menu_LogService_Step3() {
 		while (_continue) {
 			displayMenu_LogService3();
-			userInterface.displayMsg("processInput_LogService_Step3", long.class, 9);
+			_userInterface.displayMsg("processInput_LogService_Step3", long.class, 9);
 
 			// If the method to call is not null, then call it now
 			if (methodToCall != null) {
@@ -222,7 +263,7 @@ public class CmdLnController extends MenuSystem {
 	public void menu_Report() {
 		while (_continue) {
 			displayMenu_Report();
-			userInterface.displayMsg("processInput_Report", int.class, 9);
+			_userInterface.displayMsg("processInput_Report", int.class, 9);
 
 			// If the method to call is not null, then call it now
 			if (methodToCall != null) {
@@ -262,7 +303,15 @@ public class CmdLnController extends MenuSystem {
 	
 	private boolean ValidateProviderID(long providerID) {
 		// TODO Auto-generated method stub
-		return false;
+		/*_provider = _providerMgr.findProvider(providerID);
+		
+		// If the provider is NULL let the user know they weren't found
+		if (_provider == null) {
+			_userInterface.addMessageLine("Invalid Provider Number!");
+			return false;
+		}*/
+		
+		return true;
 	}
 	
 	private boolean LogServiceCode(long serviceCode) {
@@ -277,6 +326,13 @@ public class CmdLnController extends MenuSystem {
 	
 	private boolean ValidateMemberNumber(long memberNumber) {
 		// TODO Auto-generated method stub
-		return false;
+		/*_member = _memberMgr.findMember(memberNumber);
+		
+		if (_member == null) {
+			_userInterface.addMessageLine("Invalid Member Number!");
+			return false;
+		}*/
+		
+		return true;
 	}
 }

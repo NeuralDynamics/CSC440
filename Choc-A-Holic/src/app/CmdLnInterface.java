@@ -59,23 +59,35 @@ public class CmdLnInterface implements IUserInterface {
 		         System.out.println("IO error trying to read data!");
 		      }
 			
-			if (dataInput.toLowerCase().equals('q')) {
-				quit = true;
-				break;
-			}
-			
 			if (dataInput.length() > maxCharCount) {
 				System.out.println("Too many characters entered. A maximum " + maxCharCount + " characters is allowed");
 			}
 			
+			// Cast the value and return a valid object
 			objData = CastValue(dataInput);
 			if (objData != null) { break; }
+			
+			// If our input says to quit, quit!
+			if (dataInput.toLowerCase().equals("q")) {
+				quit = true;
+				objData = getDefaultValue();
+				break;
+			}
 			
 			// Display an error message to the user indicating that the selection was not valid
 			System.out.println("Invalid Entry. Please select enter a valid entry or 'q' to quit");
 		}
 		
 		methodInvoker.callMethod(this.methodName, this.cls, objData, boolean.class, quit);
+	}
+	
+	protected Object getDefaultValue() {
+		if (cls == String.class) { return ""; }
+		if (cls == Date.class) { return new Date(); }
+		if (cls == long.class) { return -1; }
+		if (cls == int.class) { return -1; }
+		
+		return null;
 	}
 	
 	protected Object CastValue(String dataInput) {
@@ -89,14 +101,14 @@ public class CmdLnInterface implements IUserInterface {
 		
 		// Cast Long
 		if (cls == long.class) {
-			try { long l = Long.parseLong(dataInput); return l; } catch (Exception Ex) {}
+			try { long l = Long.parseLong(dataInput); return l; } catch (Exception Ex) { }
 		}
 		
 		// Cast Int
 		if (cls == int.class) {
-			try { int l = Integer.parseInt(dataInput); return l; } catch (Exception Ex) {}
+			try { int l = Integer.parseInt(dataInput); return l; } catch (Exception Ex) { }
 		}
 		
-		return false;
+		return null;
 	}
 }
