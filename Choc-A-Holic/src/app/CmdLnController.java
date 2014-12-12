@@ -54,7 +54,7 @@ public class CmdLnController extends AController {
 	public void menu_LogInProvider() {
 		while (_continue) {
 			displayMenu_LogInProvider();
-			_userInterface.displayMsg("processInput_LogInProvider", long.class, 9);
+			displayMsg("processInput_LogInProvider", long.class, 9);
 	
 			// If the method to call is not null, then call it now
 			if (methodToCall != null) {
@@ -77,7 +77,6 @@ public class CmdLnController extends AController {
 
 		// Validate the provider ID (if invalid notify the user)
 		if (ValidateProviderID(ProviderID) == false) {
-			_userInterface.addMessageLine("Invalid Provider Number!");
 			return;
 		}
 
@@ -91,7 +90,7 @@ public class CmdLnController extends AController {
 	public void menu_Provider() {
 		while (_continue) {
 			displayMenu_Provider();
-			_userInterface.displayMsg("processInput_Provider", int.class, 9);
+			displayMsg("processInput_Provider", int.class, 9);
 
 			// If the method to call is not null, then call it now
 			if (methodToCall != null) {
@@ -133,7 +132,7 @@ public class CmdLnController extends AController {
 	public void menu_LogInMember() {
 		while (_continue) {
 			displayMenu_LogInMember();
-			_userInterface.displayMsg("processInput_LogInMember", long.class, 9);
+			displayMsg("processInput_LogInMember", long.class, 9);
 	
 			// If the method to call is not null, then call it now
 			if (methodToCall != null) {
@@ -169,7 +168,7 @@ public class CmdLnController extends AController {
 	public void menu_LogService() {
 		while (_continue) {
 			displayMenu_LogService1();
-			_userInterface.displayMsg("processInput_LogService", long.class, 9);
+			displayMsg("processInput_LogService", long.class, 9);
 
 			// If the method to call is not null, then call it now
 			if (methodToCall != null) {
@@ -199,7 +198,7 @@ public class CmdLnController extends AController {
 	public void menu_LogService_Step2() {
 		while (_continue) {
 			displayMenu_LogService2();
-			_userInterface.displayMsg("processInput_LogService_Step2", long.class, 9);
+			displayMsg("processInput_LogService_Step2", long.class, 9);
 
 			// If the method to call is not null, then call it now
 			if (methodToCall != null) {
@@ -229,7 +228,7 @@ public class CmdLnController extends AController {
 	public void menu_LogService_Step3() {
 		while (_continue) {
 			displayMenu_LogService3();
-			_userInterface.displayMsg("processInput_LogService_Step3", Date.class, 10);
+			displayMsg("processInput_LogService_Step3", Date.class, 10);
 
 			// If the method to call is not null, then call it now
 			if (methodToCall != null) {
@@ -273,7 +272,7 @@ public class CmdLnController extends AController {
 	public void menu_Report() {
 		while (_continue) {
 			displayMenu_Report();
-			_userInterface.displayMsg("processInput_Report", int.class, 1);
+			displayMsg("processInput_Report", int.class, 1);
 
 			// If the method to call is not null, then call it now
 			if (methodToCall != null) {
@@ -336,7 +335,7 @@ public class CmdLnController extends AController {
 		
 		// If the provider is NULL let the user know they weren't found
 		if (_provider == null) {
-			_userInterface.addMessageLine("Invalid Provider Number!");
+			display_ProviderNotValid();
 			return false;
 		}
 		
@@ -346,7 +345,7 @@ public class CmdLnController extends AController {
 	private boolean LogServiceCode(long serviceCode) {
 		// Make sure a valid Member Number has been entered (should never be seen!)
 		if (_member == null) {
-			_userInterface.addMessageLine("A valid Member Number has not been entered!");
+			display_MemberNotLoggedIn();
 			return false;
 		}
 		
@@ -354,7 +353,7 @@ public class CmdLnController extends AController {
 		_service = _serviceMgr.findService(serviceCode);
 		
 		if (_service == null) {
-			_userInterface.addMessageLine("Invalid Service Code!");
+			display_InvalidServiceCode();
 			return false;
 		}
 		
@@ -372,7 +371,7 @@ public class CmdLnController extends AController {
 	private boolean LogServiceDate(Date serviceDate) {
 		// Make sure a valid Member Number has been entered (should never be seen!)
 		if (_providedService == null) {
-			_userInterface.addMessageLine("A valid Member Number has not been entered!");
+			display_MemberNotLoggedIn();
 			return false;
 		}
 		
@@ -387,9 +386,18 @@ public class CmdLnController extends AController {
 		
 		// Notify the user the member was not found
 		if (_member == null) {
-			_userInterface.addMessageLine("Invalid Member Number!");
+			display_MemberInvalid();
 			return false;
 		}
+		
+		// Determine if the member is suspended or not
+		if (_member.getIsSuspended()) {
+			display_MemberSuspended();
+			return false;
+		}
+		
+		// Display 'Validated'
+		display_MemberValid();
 		
 		return true;
 	}

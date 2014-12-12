@@ -1,7 +1,11 @@
 package app;
 
 public abstract class MenuSystem extends AMethodInvoker implements IController {
-	IUserInterface _userInterface = null;
+	private IUserInterface _userInterface = null;
+	
+	protected void displayMsg(String methodName, Class<?> cls, int maxCharCount) {
+		_userInterface.displayMsg(methodName, cls, maxCharCount);
+	}
 	
 	@Override
 	public void setUserInterface(IUserInterface userInterface) {
@@ -56,5 +60,29 @@ public abstract class MenuSystem extends AMethodInvoker implements IController {
 	
 	public void displayMenu_ServiceLogged() {
 		_userInterface.addMessageLine("Service has been logged");
+	}
+	
+	public void display_MemberValid() {
+		_userInterface.addMessageLine("Validated");
+	}
+	
+	public void display_MemberInvalid() {
+		_userInterface.addMessageLine("Invalid Member Number!");
+	}
+	
+	public void display_MemberSuspended() {
+		_userInterface.addMessageLine("Member is Suspended");
+	}
+	
+	public void display_MemberNotLoggedIn() {
+		_userInterface.addMessageLine("A Member has not been logged in.");
+	}
+	
+	public void display_ProviderNotValid() {
+		_userInterface.addMessageLine("Invalid Provider Number.");
+	}
+	
+	public void display_InvalidServiceCode() {
+		_userInterface.addMessageLine("Invalid Service Code.");
 	}
 }
