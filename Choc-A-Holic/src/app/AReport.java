@@ -19,7 +19,7 @@ public abstract class AReport implements IReport {
 	DateFormat dtFormat_Dt = new SimpleDateFormat("MM-dd-yyyy");
 	
 	MemberManager _memberMgr = null;
-	ServicesManager _serviceMgr = null;
+	ServiceManager _serviceMgr = null;
 	ProviderManager _providerMgr = null;
 	ProvidedServiceManager _providedServiceMgr = null;
 	
@@ -32,7 +32,7 @@ public abstract class AReport implements IReport {
 		_memberMgr = m;
 	}
 	@Override
-	public void setServiceManager(ServicesManager m){
+	public void setServiceManager(ServiceManager m){
 		_serviceMgr = m;
 	}
 	@Override

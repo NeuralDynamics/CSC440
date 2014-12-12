@@ -2,14 +2,13 @@ package app;
 
 import java.util.*;
 
-public class ServicesManager {
+public class ServiceManager {
 	private static String filename = "ServiceMgrFile.txt";
 	private List<Service> serviceList;
 	private IReader<List<Service>> reader;
 	private IWriter<List<Service>> writer;
 	
-	public ServicesManager() {
-		serviceList = new ArrayList<Service>();
+	public ServiceManager() {
 		reader = new FileReader<List<Service>>(filename);
 		writer = new FileWriter<List<Service>>(filename);
 	}

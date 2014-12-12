@@ -2,7 +2,7 @@ package app;
 
 public abstract class AController extends MenuSystem {
 	protected MemberManager _memberMgr = null;
-	protected ServicesManager _serviceMgr = null;
+	protected ServiceManager _serviceMgr = null;
 	protected ProviderManager _providerMgr = null;
 	protected ProvidedServiceManager _providedServiceMgr = null;
 	
@@ -15,7 +15,7 @@ public abstract class AController extends MenuSystem {
 		
 		// Create the manager instances
 		_memberMgr = new MemberManager();
-		_serviceMgr = new ServicesManager();
+		_serviceMgr = new ServiceManager();
 		_providerMgr = new ProviderManager();
 		_providedServiceMgr = new ProvidedServiceManager();
 		

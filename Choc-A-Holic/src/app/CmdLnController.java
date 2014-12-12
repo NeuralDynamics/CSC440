@@ -199,7 +199,7 @@ public class CmdLnController extends AController {
 	public void menu_LogService_Step2() {
 		while (_continue) {
 			displayMenu_LogService2();
-			_userInterface.displayMsg("processInput_LogService_Step2", Date.class, 10);
+			_userInterface.displayMsg("processInput_LogService_Step2", long.class, 9);
 
 			// If the method to call is not null, then call it now
 			if (methodToCall != null) {
@@ -213,37 +213,7 @@ public class CmdLnController extends AController {
 		_continue = true;
 	}
 
-	public void processInput_LogService_Step2(Date serviceDate, boolean quit) {
-		// Reset the Option Chosen
-		resetSelectedOption();
-
-		// Determine if we need to quit this menu
-		if (quit) { processQuit("menu_Provider"); return; }
-
-		// Validate the Member Number
-		if (LogServiceDate(serviceDate)) {
-			methodToCall = "menu_LogService_Step3";
-		}
-	}
-
-	public void menu_LogService_Step3() {
-		while (_continue) {
-			displayMenu_LogService3();
-			_userInterface.displayMsg("processInput_LogService_Step3", long.class, 9);
-
-			// If the method to call is not null, then call it now
-			if (methodToCall != null) {
-				callMethod(methodToCall);
-			}
-
-			// If there is a method we need to quit to, and we have not yet reached it, continue breaking
-			if (quitNow()) { break; }
-		}
-
-		_continue = true;
-	}
-
-	public void processInput_LogService_Step3(long serviceCode, boolean quit) {
+	public void processInput_LogService_Step2(long serviceCode, boolean quit) {
 		// Reset the Option Chosen
 		resetSelectedOption();
 
@@ -252,6 +222,36 @@ public class CmdLnController extends AController {
 
 		// Validate the Member Number
 		if (LogServiceCode(serviceCode)) {
+			methodToCall = "menu_LogService_Step3";
+		}
+	}
+
+	public void menu_LogService_Step3() {
+		while (_continue) {
+			displayMenu_LogService3();
+			_userInterface.displayMsg("processInput_LogService_Step3", Date.class, 10);
+
+			// If the method to call is not null, then call it now
+			if (methodToCall != null) {
+				callMethod(methodToCall);
+			}
+
+			// If there is a method we need to quit to, and we have not yet reached it, continue breaking
+			if (quitNow()) { break; }
+		}
+
+		_continue = true;
+	}
+
+	public void processInput_LogService_Step3(Date serviceDate, boolean quit) {
+		// Reset the Option Chosen
+		resetSelectedOption();
+
+		// Determine if we need to quit this menu
+		if (quit) { processQuit("menu_Provider"); return; }
+
+		// Validate the Member Number
+		if (LogServiceDate(serviceDate)) {
 			methodToCall = "menu_ServiceLogged";
 		}
 	}
@@ -261,6 +261,7 @@ public class CmdLnController extends AController {
 	 * Report Menu Options
 	****************************************************/
 	public void menu_ServiceLogged() {
+		_providedServiceMgr.save();
 		displayMenu_ServiceLogged();
 		processQuit("menu_Provider");	
 	}
@@ -344,7 +345,7 @@ public class CmdLnController extends AController {
 	
 	private boolean LogServiceCode(long serviceCode) {
 		// Make sure a valid Member Number has been entered (should never be seen!)
-		if (_providedService == null) {
+		if (_member == null) {
 			_userInterface.addMessageLine("A valid Member Number has not been entered!");
 			return false;
 		}
@@ -358,6 +359,7 @@ public class CmdLnController extends AController {
 		}
 		
 		// Set the properties of the provided service
+		_providedService = new ProvidedService();
 		_providedService.setServiceCode(serviceCode);
 		_providedService.setServiceFee(_service.getServiceFee());
 		_providedService.setMemberNumber(_member.getMemberNumber());

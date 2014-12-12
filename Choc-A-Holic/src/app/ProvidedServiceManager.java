@@ -45,7 +45,10 @@ public class ProvidedServiceManager {
 	}
 	
 	public void load(){
-		provServList = (List<ProvidedService>) reader.readData();
+		try { 
+			provServList = (List<ProvidedService>) reader.readData(); }
+		catch (Exception Ex) {
+		}
 	}
 	
 	public void save(){

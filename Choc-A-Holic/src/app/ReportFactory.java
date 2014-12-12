@@ -2,7 +2,7 @@ package app;
 
 public final class ReportFactory {
 	protected static MemberManager _memberMgr = null;
-	protected static ServicesManager _servicesMgr = null;
+	protected static ServiceManager _servicesMgr = null;
 	protected static ProviderManager _providerManager = null;
 	protected static ProvidedServiceManager _providedServiceMgr = null;
 	
@@ -10,7 +10,7 @@ public final class ReportFactory {
 		_memberMgr = memberMgr;
 	}
 	
-	public static void setServicesManager(ServicesManager servicesMgr) {
+	public static void setServicesManager(ServiceManager servicesMgr) {
 		_servicesMgr = servicesMgr;
 	}
 	

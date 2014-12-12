@@ -16,6 +16,8 @@ public class ProvidedService implements Serializable {
 	private String providerName;
 	private String comments;
 	
+	public ProvidedService() { }
+	
 	public ProvidedService(Date dateOfService, Date dateTimeReceived, String memberName, long memberNumber, long serviceCode, double serviceFee, long providerNumber, String providerName){
 		this.dateOfService = dateOfService;
 		this.dateTimeReceived = dateTimeReceived;

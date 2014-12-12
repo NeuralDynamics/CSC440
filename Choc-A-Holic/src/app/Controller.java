@@ -5,7 +5,7 @@ import java.util.Date;
 public class Controller extends AMethodInvoker {
 	
 	private MemberManager mm = null;
-	private ServicesManager sm = null;
+	private ServiceManager sm = null;
 	private ProviderManager pm = null;
 	private ProvidedServiceManager psm = null;
 	
@@ -33,7 +33,7 @@ public class Controller extends AMethodInvoker {
 		
 		// Create the manager instances
 		mm = new MemberManager();
-		sm = new ServicesManager();
+		sm = new ServiceManager();
 		pm = new ProviderManager();
 		psm = new ProvidedServiceManager();
 		

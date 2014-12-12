@@ -15,7 +15,7 @@ public interface IReport {
 	public void setProvider(Provider p);
 
 	public void setMemberManager(MemberManager m);
-	public void setServiceManager(ServicesManager m);
+	public void setServiceManager(ServiceManager m);
 	public void setProviderManager(ProviderManager m);
 	public void setProvidedServiceManager(ProvidedServiceManager m);
 }
