@@ -24,7 +24,10 @@ public class FileWriter<T> implements IWriter<T>
 	    }
 	    catch(IOException i)
 	    {
-	        i.printStackTrace();
+	    	Logger.writeLog(i.toString());
+	    	for (int x = 0; x < i.getStackTrace().length; x++) {
+	    		Logger.writeLog("	 at " + i.getStackTrace()[x].toString());
+	    	}
 	    }
 	}
 }

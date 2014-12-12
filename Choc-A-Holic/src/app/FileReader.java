@@ -26,18 +26,27 @@ public class FileReader<T> implements IReader<T>
 	    }
 	    catch(FileNotFoundException i)
 	    {
-	       i.printStackTrace();
+	    	Logger.writeLog(i.toString());
+	    	for (int x = 0; x < i.getStackTrace().length; x++) {
+	    		Logger.writeLog("	 at " + i.getStackTrace()[x].toString());
+	    	}
 	       return null;
 	    }
 	    catch(IOException i)
 	    {
-	       i.printStackTrace();
+	    	Logger.writeLog(i.toString());
+	    	for (int x = 0; x < i.getStackTrace().length; x++) {
+	    		Logger.writeLog("	 at " + i.getStackTrace()[x].toString());
+	    	}
 	       return null;
 	    }
 	    catch(ClassNotFoundException c)
 	    {
 	       System.out.println("class not found");
-	       c.printStackTrace();
+	       Logger.writeLog(c.toString());
+	    	for (int x = 0; x < c.getStackTrace().length; x++) {
+	    		Logger.writeLog("	 at " + c.getStackTrace()[x].toString());
+	    	}
 	       return null;
 	    }
 	    
