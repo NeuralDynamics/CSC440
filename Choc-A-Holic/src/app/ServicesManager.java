@@ -9,6 +9,7 @@ public class ServicesManager {
 	private IWriter<List<Service>> writer;
 	
 	public ServicesManager() {
+		serviceList = new ArrayList<Service>();
 		reader = new FileReader<List<Service>>(filename);
 		writer = new FileWriter<List<Service>>(filename);
 	}
