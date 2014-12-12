@@ -31,9 +31,16 @@ public class CmdLnUI extends AUserInterface {
 		{
 			try {
 				dataInput = br.readLine();
-		      } catch (IOException ioe) {
-		    	  addMessageLine("IO error trying to read data!");
-		      }
+			} catch (IOException ioe) {
+				addMessageLine("IO error trying to read data!");
+			}
+			
+			// If our input says to quit, quit!
+			if (dataInput.toLowerCase().equals("q")) {
+				quit = true;
+				objData = castObjHelper.getDefaultValue(cls);
+				break;
+			}
 			
 			if (testCharCount(dataInput.length(), maxCharCount) == false) {
 				continue;
@@ -42,13 +49,6 @@ public class CmdLnUI extends AUserInterface {
 			// Cast the value and return a valid object
 			objData = castObjHelper.CastValue(cls, dataInput);
 			if (objData != null) { break; }
-			
-			// If our input says to quit, quit!
-			if (dataInput.toLowerCase().equals("q")) {
-				quit = true;
-				objData = castObjHelper.getDefaultValue(cls);
-				break;
-			}
 			
 			// Display an error message to the user indicating that the selection was not valid
 			displayInvalidEntry();

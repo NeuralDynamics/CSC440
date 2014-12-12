@@ -6,20 +6,18 @@ public class RptEFTRecords extends AReport {
 	
 	@Override
 	protected void buildRecords() {				
-		String output = "";
-
-		// Allocate space for the queue
-		allocateQueue(1);
+		String output = "";		
 		
-		// Loop through and find all matching Provided Services
-		// FLAG
-		/*
+		// Get a listing of all provided services
+		List<ProvidedService> provServList = _providedServiceMgr.findByProviderAndMember(provider.getProviderNumber(), member.getMemberNumber());
+		
+		// Allocate space for the queue
+		allocateQueue(provServList.size());
+		
 		// Loop through all of the Provided Service records
-		while (providedSvc.isEmpty() == false) {
-			
+		for (ProvidedService ps: provServList) {			
 			// Initialize the record
 			output = "";
-			ProvidedService ps = providedSvc.poll();
 		
 			// Write out the current Date/Time
 			output += dtFormat_DtTm.format(new Date()) + delimiter;
@@ -41,6 +39,6 @@ public class RptEFTRecords extends AReport {
 		}
 		
 		// Queue up the record
-		enqueueRecord(output);*/
+		enqueueRecord(output);
 	}
 }

@@ -59,7 +59,7 @@ public abstract class MenuSystem extends AMethodInvoker implements IController {
 		addDivider();
 	}
 
-	// Log Service Menu - Steps 1-3
+	// Log Service Menu - Steps 1-4
 	public void displayMenu_LogService1() {
 		_userInterface.addMessageLine("Please enter the Member Number (Max 9 Numbers) or 'q' to quit:");
 		addDivider();
@@ -72,6 +72,11 @@ public abstract class MenuSystem extends AMethodInvoker implements IController {
 
 	public void displayMenu_LogService3() {
 		_userInterface.addMessageLine("Please enter the Service Date (yyyy-DD-MM Format) or 'q' to quit:");
+		addDivider();
+	}
+	
+	public void displayMenu_LogService4() {
+		_userInterface.addMessageLine("Please enter any comments (Max 100 Characters) or 'q' to quit:");
 		addDivider();
 	}
 	
@@ -105,5 +110,9 @@ public abstract class MenuSystem extends AMethodInvoker implements IController {
 	
 	protected void addDivider() {
 		_userInterface.addMessageLine("----------------------------");
+	}
+	
+	public void display_ReportComplete() {
+		_userInterface.addMessageLine(QUALIFIER + " Report Completed Successfully " + QUALIFIER);
 	}
 }

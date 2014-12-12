@@ -1,14 +1,18 @@
 package app;
 
+import java.text.NumberFormat;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
-public class RptProviderDirectory extends AReport {
+public class RptServices extends AReport {
 
 	@Override
 	protected void buildRecords() {
 		// Service Name, Service Fee, Service Code
+		
+		// Currency Formatter
+		NumberFormat formatter = NumberFormat.getCurrencyInstance();
 
 		String record = "";
 		
@@ -16,7 +20,7 @@ public class RptProviderDirectory extends AReport {
 		List<Service> svcList = _serviceMgr.getServiceList();
 		
 		// Allocate space for the queue
-		allocateQueue(1 + svcList.size());
+		allocateQueue(svcList.size() + 1);
 		
 		// Enqueue the record
 		enqueueRecord(record);
@@ -35,7 +39,7 @@ public class RptProviderDirectory extends AReport {
 			record += Misc.padRight(s.getServiceName(), 25) + delimiter;
 			
 			// Service Fee
-			record += String.format(Locale.US, "%06d", s.getServiceFee());
+			record += formatter.format(s.getServiceFee());
 			
 			// Enqueue the record for output
 			enqueueRecord(record);

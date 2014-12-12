@@ -26,29 +26,44 @@ public class ProvidedServiceManager {
 		provServList.add(p);
 	}
 	
-	public ProvidedService findByProvider(long provNum){
+	public List<ProvidedService> findByProvider(long provNum){
+		List<ProvidedService> lstFound = new ArrayList<ProvidedService>();
+		
 		for (ProvidedService provServ: provServList) {
 			if (provServ.getProviderNumber() == provNum) {
-				return provServ;
+				lstFound.add(provServ);
 			}
 		}
-		return null;
+		return lstFound;
 	}
 	
-	public ProvidedService findByMember(long memNum){
+	public List<ProvidedService> findByMember(long memNum){
+		List<ProvidedService> lstFound = new ArrayList<ProvidedService>();
+		
 		for (ProvidedService provServ: provServList) {
 			if (provServ.getProviderNumber() == memNum) {
-				return provServ;
+				lstFound.add(provServ);
 			}
 		}
-		return null;
+		return lstFound;
+	}
+	
+	public List<ProvidedService> findByProviderAndMember(long provNum, long memNum){
+		List<ProvidedService> lstFound = new ArrayList<ProvidedService>();
+		
+		for (ProvidedService provServ: provServList) {
+			if (provServ.getProviderNumber() == provNum &&
+				provServ.getMemberNumber() == memNum) {
+				lstFound.add(provServ);
+			}
+		}
+		return lstFound;
 	}
 	
 	public void load(){
-		try { 
-			provServList = (List<ProvidedService>) reader.readData(); }
-		catch (Exception Ex) {
-		}
+		//Tries to read member list from file, otherwise creates a new list
+		provServList = reader.readData();
+		if (provServList == null) provServList = new ArrayList<ProvidedService>();
 	}
 	
 	public void save(){

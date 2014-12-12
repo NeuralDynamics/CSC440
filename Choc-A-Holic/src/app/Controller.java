@@ -290,17 +290,54 @@ public class Controller extends AController {
 			return;
 		}
 
-		// Validate the Member Number
+		// Log the Service Date
 		if (LogServiceDate(serviceDate)) {
+			methodToCall = "menu_LogService_Step4";
+		}
+	}
+	
+	public void menu_LogService_Step4() {
+		while (_continue) {
+			displayMenu_LogService4();
+			displayMsg("processInput_LogService_Step4", String.class, 100);
+
+			// If the method to call is not null, then call it now
+			if (methodToCall != null) {
+				callMethod(methodToCall);
+			}
+
+			// If there is a method we need to quit to, and we have not yet reached it, continue breaking
+			if (quitNow()) { break; }
+		}
+		
+		_continue = true;
+	}
+
+	public void processInput_LogService_Step4(String comments, boolean quit) {
+		String menu = "menu_Provider";
+		// Reset the Option Chosen
+		resetSelectedOption();
+		
+		// Determine if we need to quit this menu
+		if (quit) { 
+			if (_isEventBased) { callMethod(menu); }
+			else { processQuit(menu); }
+			return;
+		}
+
+		// Validate the Member Number
+		if (LogServiceComments(comments)) {
 			methodToCall = "menu_ServiceLogged";
 		}
 	}
 	
 	/****************************************************
-	 * Menu - Report
-	 * Report Menu Options
+	 * Menu - Service Logged
+	 * Displayed message indicating the service was logged & Saved
+	 * Quits to the provider menu
 	****************************************************/
 	public void menu_ServiceLogged() {
+		_providedServiceMgr.addProvidedService(_providedService);
 		_providedServiceMgr.save();
 		displayMenu_ServiceLogged();
 		processQuit("menu_Provider");	
@@ -310,7 +347,7 @@ public class Controller extends AController {
 	 * Menu - Report
 	 * Report Menu Options
 	****************************************************/
-	public void menu_Report() {
+	public void menu_RunReport() {
 		while (_continue) {
 			displayMenu_Report();
 			displayMsg("processInput_Report", int.class, 1);
@@ -356,24 +393,27 @@ public class Controller extends AController {
 		}
 	}
 	
+	protected void runReport(String ReportName) throws ReportNotFoundException, IOException {
+		IReport rpt = ReportFactory.createReport(ReportName, _member, _provider);
+		rpt.runReport(ReportName + " Report.txt");
+		display_ReportComplete();
+		processQuit("menu_Provider");
+	}
+	
 	public void runReportProvider() throws ReportNotFoundException, IOException {
-		IReport rpt = ReportFactory.createReport("Provider", _member, _provider);
-		rpt.runReport("ProviderReport.txt");
+		runReport("Provider");	
 	}
 	
 	public void runReportMember() throws ReportNotFoundException, IOException {
-		IReport rpt = ReportFactory.createReport("MemberService", _member, _provider);
-		rpt.runReport("MemberServiceReport.txt");
+		runReport("MemberService");
 	}
 	
 	public void runReportServices() throws ReportNotFoundException, IOException {
-		IReport rpt = ReportFactory.createReport("Services", _member, _provider);
-		rpt.runReport("ServicesReport.txt");
+		runReport("Services");
 	}
 	
 	public void runReportEFT() throws ReportNotFoundException, IOException {
-		IReport rpt = ReportFactory.createReport("EFTRecords", _member, _provider);
-		rpt.runReport("EFTRecordsReport.txt");
+		runReport("EFTRecords");
 	}
 	
 	private boolean ValidateProviderID(long providerID) {
@@ -423,6 +463,18 @@ public class Controller extends AController {
 		
 		// Set the Date of Service
 		_providedService.setDateOfService(serviceDate);
+		return true;
+	}
+	
+	private boolean LogServiceComments(String comments) {
+		// Make sure a valid Member Number has been entered (should never be seen!)
+		if (_providedService == null) {
+			display_MemberNotLoggedIn();
+			return false;
+		}
+		
+		// Set the Date of Service
+		_providedService.setComments(comments);
 		return true;
 	}
 	

@@ -3,6 +3,7 @@ package ui;
 import app.Controller;
 import app.IController;
 import app.IUserInterface;
+import app.StateMachineCtrllr;
 
 public class Main {
 
@@ -21,9 +22,11 @@ public class Main {
 		
 		/*ctrl.test();*/
 		
-		//IUserInterface ui = new CmdLnUI();
-		IUserInterface ui = new WinUI();
-		IController ctrl2 = new Controller();
+		IUserInterface ui = new CmdLnUI();
+		//IUserInterface ui = new WinUI();
+		
+		//IController ctrl2 = new Controller();
+		IController ctrl2 = new StateMachineCtrllr();
 		
 		ui.setMethodInvoker(ctrl2);
 		ctrl2.setUserInterface(ui);

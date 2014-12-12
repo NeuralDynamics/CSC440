@@ -26,6 +26,7 @@ public abstract class AController extends MenuSystem {
 		ReportFactory.setMemberManager(_memberMgr);
 		ReportFactory.setServicesManager(_serviceMgr);
 		ReportFactory.setProviderManager(_providerMgr);
+		ReportFactory.setProvidedServiceMgr(_providedServiceMgr);
 		
 		// Load the Member Data
 		try {

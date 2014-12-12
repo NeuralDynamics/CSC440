@@ -12,10 +12,10 @@ import app.*;
 
 public class Test_ServicesManagement {
 	
-	ServicesManager sm;
+	ServiceManager sm;
 	@Before
 	public void setUp() throws Exception {
-		sm = new ServicesManager(); 
+		sm = new ServiceManager(); 
 	}
 
 	@After

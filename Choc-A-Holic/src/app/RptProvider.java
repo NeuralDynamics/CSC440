@@ -2,6 +2,7 @@ package app;
 
 import java.text.NumberFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public class RptProvider extends AReport {
@@ -15,11 +16,11 @@ public class RptProvider extends AReport {
 		
 		String record = "";
 		
-		// Loop through and find all matching Provided Services
-		// FLAG
-		/*
+		// Get a listing of all provided services
+		List<ProvidedService> provServList = _providedServiceMgr.findByProvider(provider.getProviderNumber());
+		
 		// Allocate space for the queue
-		allocateQueue(2 + providedSvc.size());
+		allocateQueue(provServList.size() + 2);
 		
 		// Write out the Provider Name
 		record += Misc.padRight(provider.getName(), 25) + delimiter;
@@ -43,14 +44,13 @@ public class RptProvider extends AReport {
 		enqueueRecord(record);
 		
 		// Loop through all of the Provided Service records
-		while (providedSvc.isEmpty() == false) {
+		for (ProvidedService ps: provServList) {
 			
 			// Increment our record counter
 			recCount++;
 			
 			// Initialize the record
 			record = "";
-			ProvidedService ps = providedSvc.poll();
 			
 			// Service Date
 			record += dtFormat_Dt.format(ps.getDateOfService()) + delimiter;
@@ -68,7 +68,7 @@ public class RptProvider extends AReport {
 			record += String.format(Locale.US, "%06d", ps.getServiceCode()) + delimiter;
 			
 			// Write out the Service Fee
-			record += String.format(Locale.US, "%06d", ps.getServiceFee());
+			record += formatter.format(ps.getServiceFee());
 			totalFee += ps.getServiceFee();			
 			
 			// Enqueue the record for output
@@ -79,6 +79,6 @@ public class RptProvider extends AReport {
 		record = "";
 		record += formatter.format(totalFee) + delimiter;
 		record += record += String.format(Locale.US, "%03d", recCount);
-		enqueueRecord(record);*/
+		enqueueRecord(record);
 	}
 }

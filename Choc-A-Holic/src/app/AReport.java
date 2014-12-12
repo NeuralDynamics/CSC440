@@ -51,7 +51,7 @@ public abstract class AReport implements IReport {
 		buildRecords();
 		
 		// Open the file for append
-		try(PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(filename, true)))) {
+		try(PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(filename, false)))) {
 			while (recordQue.isEmpty() == false) {
 				// Write the record
 				out.println(recordQue.poll());

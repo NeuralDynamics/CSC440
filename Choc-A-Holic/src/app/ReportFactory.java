@@ -35,6 +35,8 @@ public final class ReportFactory {
 		case "EFTRecords":
 			rpt = new RptEFTRecords();
 			break;
+		case "Services":
+			rpt = new RptServices();
 		}
 		
 		if (rpt == null) {

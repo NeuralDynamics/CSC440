@@ -1,19 +1,19 @@
 package app;
 
+import java.util.List;
 import java.util.Locale;
 
 public class RptMemberService extends AReport {
 
 	@Override
 	protected void buildRecords() {
-		
 		String record = "";		
 		
-		// Loop through and find all matching Provided Services
-		// FLAG
-		/*
+		// Get a listing of all provided services
+		List<ProvidedService> provServList = _providedServiceMgr.findByMember(member.getMemberNumber());
+		
 		// Allocate space for the queue
-		allocateQueue(1 + providedSvc.size());
+		allocateQueue(provServList.size() + 1);		
 		
 		// Write out the Member Name
 		record += Misc.padRight(member.getName(), 25) + delimiter;
@@ -37,15 +37,15 @@ public class RptMemberService extends AReport {
 		enqueueRecord(record);
 		
 		// Loop through all of the Provided Service records
-		while (providedSvc.isEmpty() == false) {
+		for (ProvidedService ps: provServList) {
 			
 			// Initialize the record
 			record = "";
-			ProvidedService ps = providedSvc.poll();
 			
 			// Load the Provider
 			Provider p = _providerMgr.findProvider(ps.getProviderNumber());
 			
+			// Load the Service
 			Service s = _serviceMgr.findService(ps.getServiceCode());
 			
 			// Service Date
@@ -59,6 +59,6 @@ public class RptMemberService extends AReport {
 			
 			// Enqueue the record for output
 			enqueueRecord(record);
-		}*/
+		}
 	}
 }
