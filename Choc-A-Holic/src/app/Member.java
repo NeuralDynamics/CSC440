@@ -15,6 +15,7 @@ public class Member implements Serializable {
 	private String emailStatus;
 	private String accountNumber;
 	private String routingNumber;
+	private boolean isSuspended = false;
 	
 	public Member(long memberNumber, String name, String address, String city, String state, long zip, String phoneNumber, String emailStatus, String accountNumber, String routingNumber) {
 		this.memberNumber = memberNumber;
@@ -133,5 +134,12 @@ public class Member implements Serializable {
 	public long getZipCode() {
 		return getZip();
 	}
-
+	
+	public boolean getIsSuspended() {
+		return this.isSuspended;
+	}
+	
+	public void setIsSuspended(boolean isSuspended) {
+		this.isSuspended = isSuspended;
+	}
 }
