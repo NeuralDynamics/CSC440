@@ -1,4 +1,8 @@
-package app;
+package ui;
+
+import app.Controller;
+import app.IController;
+import app.IUserInterface;
 
 public class Main {
 
@@ -17,7 +21,8 @@ public class Main {
 		
 		/*ctrl.test();*/
 		
-		IUserInterface ui = new CmdLnUI();
+		//IUserInterface ui = new CmdLnUI();
+		IUserInterface ui = new WinUI();
 		IController ctrl2 = new Controller();
 		
 		ui.setMethodInvoker(ctrl2);

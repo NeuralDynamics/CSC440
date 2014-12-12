@@ -4,8 +4,15 @@ public abstract class MenuSystem extends AMethodInvoker implements IController {
 	private IUserInterface _userInterface = null;
 	private static String QUALIFIER = "***";
 	
+	protected boolean _isEventBased = false;
+	
 	protected void displayMsg(String methodName, Class<?> cls, int maxCharCount) {
 		_userInterface.displayMsg(methodName, cls, maxCharCount);
+	}
+	
+	protected void initialize() {
+		// Set up for Event Based processing or not
+		_isEventBased = _userInterface.getIsEventBased();
 	}
 	
 	@Override

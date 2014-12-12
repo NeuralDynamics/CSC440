@@ -1,5 +1,6 @@
-package app;
+package ui;
 
+import app.AUserInterface;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -39,13 +40,13 @@ public class CmdLnUI extends AUserInterface {
 			}
 			
 			// Cast the value and return a valid object
-			objData = CastValue(dataInput);
+			objData = castObjHelper.CastValue(cls, dataInput);
 			if (objData != null) { break; }
 			
 			// If our input says to quit, quit!
 			if (dataInput.toLowerCase().equals("q")) {
 				quit = true;
-				objData = getDefaultValue();
+				objData = castObjHelper.getDefaultValue(cls);
 				break;
 			}
 			
@@ -54,5 +55,12 @@ public class CmdLnUI extends AUserInterface {
 		}
 		
 		methodInvoker.callMethod(this.methodName, this.cls, objData, boolean.class, quit);
+	}
+
+
+	@Override
+	public boolean getIsEventBased() {
+		// Never Event Based
+		return false;
 	}
 }

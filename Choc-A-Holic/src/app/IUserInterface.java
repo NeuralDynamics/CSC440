@@ -15,5 +15,7 @@ public interface IUserInterface {
 	public void displayMsg(String methodName, Class<?> cls, int maxCharCount);
 	
 	public void setMethodInvoker(IMethodInvoker methodInvoker);
+	
+	public boolean getIsEventBased();
 
 }

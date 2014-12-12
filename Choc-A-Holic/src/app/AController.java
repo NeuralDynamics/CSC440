@@ -11,7 +11,11 @@ public abstract class AController extends MenuSystem {
 	protected Service _service = null;
 	protected ProvidedService _providedService = null;
 	
+	@Override
 	protected void initialize() {
+		
+		// Initialize the super class
+		super.initialize();
 		
 		// Create the manager instances
 		_memberMgr = new MemberManager();

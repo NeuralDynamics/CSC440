@@ -55,6 +55,9 @@ public class Controller extends AController {
 		while (_continue) {
 			displayMenu_LogInProvider();
 			displayMsg("processInput_LogInProvider", long.class, 9);
+			
+			// if we are event based, exit now (handled elsewhere)
+			if (_isEventBased) { break; }
 	
 			// If the method to call is not null, then call it now
 			if (methodToCall != null) {
@@ -69,11 +72,16 @@ public class Controller extends AController {
 	}
 	
 	public void processInput_LogInProvider(long ProviderID, boolean quit) {
+		String menu = "menu_LogInProvider";
 		// Reset the Option Chosen
 		resetSelectedOption();
 
 		// Determine if we need to quit this menu
-		if (quit) { processQuit(null); return; }
+		if (quit) { 
+			if (_isEventBased) { callMethod(menu); }
+			else { processQuit(menu); }
+			return;
+		}
 
 		// Validate the provider ID (if invalid notify the user)
 		if (ValidateProviderID(ProviderID) == false) {
@@ -91,6 +99,9 @@ public class Controller extends AController {
 		while (_continue) {
 			displayMenu_Provider();
 			displayMsg("processInput_Provider", int.class, 9);
+			
+			// if we are event based, exit now (handled elsewhere)
+			if (_isEventBased) { break; }
 
 			// If the method to call is not null, then call it now
 			if (methodToCall != null) {
@@ -105,11 +116,16 @@ public class Controller extends AController {
 	}
 
 	public void processInput_Provider(int option, boolean quit) {
+		String menu = "menu_LogInProvider";
 		// Reset the Option Chosen
 		resetSelectedOption();
 
 		// Determine if we need to quit this menu
-		if (quit) { processQuit("menu_LogInProvider"); return; }
+		if (quit) { 
+			if (_isEventBased) { callMethod(menu); }
+			else { processQuit(menu); }
+			return;
+		}
 
 		// Determine which option to call
 		switch (option) {
@@ -147,11 +163,16 @@ public class Controller extends AController {
 	}
 	
 	public void processInput_LogInMember(long MemberID, boolean quit) {
+		String menu = "menu_Provider";
 		// Reset the Option Chosen
 		resetSelectedOption();
-
+		
 		// Determine if we need to quit this menu
-		if (quit) { processQuit("menu_Provider"); return; }
+		if (quit) { 
+			if (_isEventBased) { callMethod(menu); }
+			else { processQuit(menu); }
+			return;
+		}
 
 		// Validate the provider ID (if invalid notify the user)
 		if (ValidateMemberNumber(MemberID) == false) {
@@ -183,11 +204,16 @@ public class Controller extends AController {
 	}
 
 	public void processInput_LogService(long memberNumber, boolean quit) {
+		String menu = "menu_Provider";
 		// Reset the Option Chosen
 		resetSelectedOption();
-
+		
 		// Determine if we need to quit this menu
-		if (quit) { processQuit("menu_Provider"); return; }
+		if (quit) { 
+			if (_isEventBased) { callMethod(menu); }
+			else { processQuit(menu); }
+			return;
+		}
 
 		// Validate the Member Number
 		if (ValidateMemberNumber(memberNumber) && _member != null) {
@@ -218,11 +244,16 @@ public class Controller extends AController {
 	}
 
 	public void processInput_LogService_Step2(long serviceCode, boolean quit) {
+		String menu = "menu_Provider";
 		// Reset the Option Chosen
 		resetSelectedOption();
 
 		// Determine if we need to quit this menu
-		if (quit) { processQuit("menu_Provider"); return; }
+		if (quit) { 
+			if (_isEventBased) { callMethod(menu); }
+			else { processQuit(menu); }
+			return;
+		}
 
 		// Validate the Member Number
 		if (LogServiceCode(serviceCode)) {
@@ -248,11 +279,16 @@ public class Controller extends AController {
 	}
 
 	public void processInput_LogService_Step3(Date serviceDate, boolean quit) {
+		String menu = "menu_Provider";
 		// Reset the Option Chosen
 		resetSelectedOption();
-
+		
 		// Determine if we need to quit this menu
-		if (quit) { processQuit("menu_Provider"); return; }
+		if (quit) { 
+			if (_isEventBased) { callMethod(menu); }
+			else { processQuit(menu); }
+			return;
+		}
 
 		// Validate the Member Number
 		if (LogServiceDate(serviceDate)) {
@@ -292,11 +328,16 @@ public class Controller extends AController {
 	}
 
 	public void processInput_Report(int option, boolean quit) {
+		String menu = "menu_Provider";
 		// Reset the Option Chosen
 		resetSelectedOption();
-
+		
 		// Determine if we need to quit this menu
-		if (quit) { processQuit(null); return; }
+		if (quit) { 
+			if (_isEventBased) { callMethod(menu); }
+			else { processQuit(menu); }
+			return;
+		}
 
 		// Determine which option to call
 		switch (option) {
