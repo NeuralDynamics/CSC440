@@ -8,18 +8,14 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import app.*;
+
 public class Test_ServicesManagement {
-
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-	}
-
-	@AfterClass
-	public static void tearDownAfterClass() throws Exception {
-	}
-
+	
+	ServicesManager sm;
 	@Before
 	public void setUp() throws Exception {
+		sm = new ServicesManager(); 
 	}
 
 	@After
@@ -27,8 +23,13 @@ public class Test_ServicesManagement {
 	}
 
 	@Test
-	public void test() {
-		fail("Not yet implemented");
+	public void testAddService() {
+		sm.load();
+		sm.addService(new Service("aerobics exercise session", 883948, 20.25));
+		Service svc = sm.findService(883948);
+		assertNotNull(svc);
+		assertTrue(svc.getServiceName().equals("aerobics exercise session"));
+		assertTrue(svc.getServiceFee() == 20.25);
 	}
 
 }
