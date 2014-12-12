@@ -3,22 +3,15 @@ package app;
 import java.util.*;
 
 public class ProviderManager {
-	private String fileName;
+	private static String filename = "ProvMgrFile.txt";
 	private List<Provider> provList;
 	private IReader<List<Provider>> reader;
 	private IWriter<List<Provider>> writer;
 	
 	public ProviderManager(){
-		reader = new FileReader<List<Provider>>(fileName);
-		writer = new FileWriter<List<Provider>>(fileName);
-	}
-	
-	public String getFileName() {
-		return fileName;
-	}
-
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
+		provList = new ArrayList<Provider>();
+		reader = new FileReader<List<Provider>>(filename);
+		writer = new FileWriter<List<Provider>>(filename);
 	}
 
 	public List<Provider> getProvList() {
@@ -48,5 +41,11 @@ public class ProviderManager {
 	
 	public void save(){
 		writer.writeData(provList);
+	}
+	
+	public void display(){
+		for (Provider pvr: provList) {
+			System.out.println(pvr.toString());
+		}
 	}
 }

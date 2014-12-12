@@ -3,22 +3,15 @@ package app;
 import java.util.*;
 
 public class ProvidedServiceManager {
-	private String fileName;
+	private static String filename = "ProvidedServMgrFile.txt";
 	private List<ProvidedService> provServList;
 	private IReader<List<ProvidedService>> reader;
 	private IWriter<List<ProvidedService>> writer;
 	
 	public ProvidedServiceManager(){
-		reader = new FileReader<List<ProvidedService>>(fileName);
-		writer = new FileWriter<List<ProvidedService>>(fileName);
-	}
-
-	public String getFileName() {
-		return fileName;
-	}
-
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
+		provServList = new ArrayList<ProvidedService>();
+		reader = new FileReader<List<ProvidedService>>(filename);
+		writer = new FileWriter<List<ProvidedService>>(filename);
 	}
 
 	public List<ProvidedService> getProvServList() {
