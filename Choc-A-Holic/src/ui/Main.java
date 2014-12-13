@@ -1,13 +1,5 @@
 package ui;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import date.conversion.DateChecker;
-
-import app.CastObjectHelper;
 import app.Controller;
 import app.IController;
 import app.IUserInterface;
@@ -18,7 +10,7 @@ public class Main {
 	 * @param args
 	 * @throws ParseException 
 	 */
-	public static void main(String[] args) throws ParseException {
+	public static void main(String[] args) {
 		
 		// Instantiate a User Interface
 		IUserInterface ui = new CmdLnUI();
