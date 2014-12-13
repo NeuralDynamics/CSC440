@@ -14,6 +14,21 @@ public abstract class AUserInterface implements IUserInterface {
 	protected CastObjectHelper castObjHelper = new CastObjectHelper();
 	
 	@Override
+	public String getDateFormat() {
+		return castObjHelper.getDateFormat();
+	}
+	
+	@Override
+	public int getNumDays() {
+		return castObjHelper.getNumDays();
+	}
+	
+	@Override
+	public void setNumDays(int numDays) {
+		castObjHelper.setNumDays(numDays);
+	}
+	
+	@Override
 	public void addMessageLine(String message) {
 		messages.add(message);
 	}

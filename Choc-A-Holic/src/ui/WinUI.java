@@ -124,4 +124,22 @@ public class WinUI extends Frame implements ActionListener, IUserInterface {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public String getDateFormat() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int getNumDays() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void setNumDays(int numDays) {
+		// TODO Auto-generated method stub
+		
+	}
 }

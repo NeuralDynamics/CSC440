@@ -50,8 +50,9 @@ public class CmdLnUI extends AUserInterface {
 			objData = castObjHelper.CastValue(cls, dataInput);
 			if (objData != null) { break; }
 			
-			// Display an error message to the user indicating that the selection was not valid
+			// Display an error message to the user indicating that the selection was not valid & break the loop!
 			displayInvalidEntry();
+			break;
 		}
 		
 		methodInvoker.callMethod(this.methodName, this.cls, objData, boolean.class, quit);

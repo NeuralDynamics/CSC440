@@ -17,5 +17,9 @@ public interface IUserInterface {
 	public void setMethodInvoker(IMethodInvoker methodInvoker);
 	
 	public boolean getIsEventBased();
-
+	
+	public String getDateFormat();
+	
+	public int getNumDays();
+	public void setNumDays(int numDays);
 }

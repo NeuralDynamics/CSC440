@@ -3,6 +3,8 @@ package app;
 import java.io.IOException;
 import java.util.Date;
 
+import date.conversion.DateChecker;
+
 enum State {
 	// Unknown State
 	Unknown,
@@ -490,6 +492,24 @@ public class StateMachineCtrllr extends AController {
 		// seen!)
 		if (_providedService == null) {
 			display_MemberNotLoggedIn();
+			return false;
+		}
+		
+		// Make sure we have a valid date
+		if (serviceDate == null) {
+			display_InvalidDateEntry();
+			return false;
+		}
+		
+		// Make sure the date isn't in the future
+		if (DateChecker.BeforeOrToday(serviceDate) == false) {
+			display_InvalidDate_Future();
+			return false;
+		}
+		
+		// Make sure the date isn't too far in the past
+		if (DateChecker.withinDays(serviceDate, getNumDays()) == false) {
+			display_InvalidDate_Future();
 			return false;
 		}
 

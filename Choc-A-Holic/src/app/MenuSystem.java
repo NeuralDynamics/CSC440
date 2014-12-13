@@ -15,6 +15,14 @@ public abstract class MenuSystem extends AMethodInvoker implements IController {
 		_isEventBased = _userInterface.getIsEventBased();
 	}
 	
+	protected String getDateFormat() {
+		return _userInterface.getDateFormat();
+	}
+	
+	protected int getNumDays() {
+		return _userInterface.getNumDays();
+	}
+	
 	@Override
 	public void setUserInterface(IUserInterface userInterface) {
 		this._userInterface = userInterface;
@@ -71,7 +79,7 @@ public abstract class MenuSystem extends AMethodInvoker implements IController {
 	}
 
 	public void displayMenu_LogService3() {
-		_userInterface.addMessageLine("Please enter the Service Date (yyyy-DD-MM Format) or 'q' to quit:");
+		_userInterface.addMessageLine("Please enter the Service Date (" + getDateFormat() + " Format) or 'q' to quit:");
 		addDivider();
 	}
 	
@@ -106,6 +114,20 @@ public abstract class MenuSystem extends AMethodInvoker implements IController {
 	
 	public void display_InvalidServiceCode() {
 		_userInterface.addMessageLine(QUALIFIER + " Invalid Service Code " + QUALIFIER);
+	}
+	
+	public void display_InvalidDateEntry() {
+		_userInterface.addMessageLine(QUALIFIER + " Please enter a valid date in the format " + getDateFormat() + " " + QUALIFIER);
+	}
+	
+	public void display_InvalidDate_Future() {
+		_userInterface.addMessageLine(QUALIFIER + " The date entered is in the future. " + QUALIFIER);
+		_userInterface.addMessageLine(QUALIFIER + " Please enter a date between Today and " + getNumDays() + " in past " + QUALIFIER);
+	}
+	
+	public void display_InvalidDate_Past() {
+		_userInterface.addMessageLine(QUALIFIER + " The date entered is too far in the past. " + QUALIFIER);
+		_userInterface.addMessageLine(QUALIFIER + " Please enter a date between Today and " + getNumDays() + " in past " + QUALIFIER);
 	}
 	
 	protected void addDivider() {
