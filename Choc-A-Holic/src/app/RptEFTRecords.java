@@ -9,7 +9,7 @@ public class RptEFTRecords extends AReport {
 		String output = "";		
 		
 		// Get a listing of all provided services
-		List<ProvidedService> provServList = _providedServiceMgr.findByProviderAndMember(provider.getProviderNumber(), member.getMemberNumber());
+		List<ProvidedService> provServList = _providedServiceMgr.getProvServList();
 		
 		// Allocate space for the queue
 		allocateQueue(provServList.size());
@@ -35,7 +35,7 @@ public class RptEFTRecords extends AReport {
 			output += String.format(Locale.US, "%06d", ps.getServiceCode()) + delimiter;
 			
 			// Write out the Comments
-			output += Misc.padRight(ps.getComments(), 100);
+			output += ps.getComments();
 		}
 		
 		// Queue up the record

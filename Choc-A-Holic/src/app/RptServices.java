@@ -36,7 +36,7 @@ public class RptServices extends AReport {
 			record += String.format(Locale.US, "%06d", s.getServiceCode()) + delimiter;
 			
 			// Service Name
-			record += Misc.padRight(s.getServiceName(), 25) + delimiter;
+			record += s.getServiceName() + delimiter;
 			
 			// Service Fee
 			record += formatter.format(s.getServiceFee());

@@ -23,19 +23,19 @@ public class RptProvider extends AReport {
 		allocateQueue(provServList.size() + 2);
 		
 		// Write out the Provider Name
-		record += Misc.padRight(provider.getName(), 25) + delimiter;
+		record += provider.getName() + delimiter;
 				
 		// Write out the Provider Number
 		record += String.format(Locale.US, "%09d", provider.getProviderNumber());
 		
 		// Write out the Address
-		record += Misc.padRight(provider.getAddress(), 25) + delimiter;
+		record += provider.getAddress() + delimiter;
 		
 		// Write out the City
-		record += Misc.padRight(provider.getCity(), 14) + delimiter;
+		record += provider.getCity() + delimiter;
 		
 		// Write out the State
-		record += Misc.padRight(provider.getState(), 2) + delimiter;
+		record += provider.getState() + delimiter;
 		
 		// Write out the Zip Code
 		record += String.format(Locale.US, "%09d", provider.getZip());
@@ -78,7 +78,7 @@ public class RptProvider extends AReport {
 		// Total Record
 		record = "";
 		record += formatter.format(totalFee) + delimiter;
-		record += record += String.format(Locale.US, "%03d", recCount);
+		record += String.format(Locale.US, "%03d", recCount);
 		enqueueRecord(record);
 	}
 }

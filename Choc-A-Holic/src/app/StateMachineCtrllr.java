@@ -16,10 +16,13 @@ enum State {
 	ProviderMenu, LoginMember, LogService, ReportMenu,
 
 	// Log Service Steps
-	LogService_Member, LogService_Code, LogService_Date, LogService_Comments, LogService_Complete,
+	LogService_Member, LogService_Code, LogService_Date, LogService_Comments, LogService_Complete, LogService_EFTReport,
 
 	// Available Reports
 	Rpt_EFTRecs, Rpt_MemberSvc, Rpt_ProviderSvc, Rpt_Services,
+	
+	// Require Member Login for Member Report
+	Rpt_MemberSvc_Login,
 
 	// Exit the application
 	Exit
@@ -55,8 +58,7 @@ public class StateMachineCtrllr extends AController {
 	protected boolean quitNow() {
 		// Get the method name in the 2nd position in the array (this counts as
 		// a method)
-		String methodName = Thread.currentThread().getStackTrace()[2]
-				.getMethodName();
+		String methodName = Thread.currentThread().getStackTrace()[2].getMethodName();
 
 		// If null, then don't quit this method
 		if (quitToMethod == null) {
@@ -93,143 +95,107 @@ public class StateMachineCtrllr extends AController {
 
 		// Main Menu State
 		if (_currState == State.MainMenu) {
-			_displayMenuMethod = "displayMenu_LogInProvider";
-			_inputProcessMethod = "processInput_LogInProvider";
-			_inputProcessParamType = long.class;
-			_inputProcessMaxCharCount = 9;
-			_quitToState = State.Exit;
+			configStateVars("displayMenu_LogInProvider", "processInput_LogInProvider", long.class, 9, State.Exit);
 			return;
 		}
 
 		// Provider Menu State
 		if (_currState == State.ProviderMenu) {
-			_displayMenuMethod = "displayMenu_Provider";
-			_inputProcessMethod = "processInput_Provider";
-			_inputProcessParamType = int.class;
-			_inputProcessMaxCharCount = 1;
-			_quitToState = State.MainMenu;
+			configStateVars("displayMenu_Provider", "processInput_Provider", int.class, 1, State.MainMenu);
 			return;
 		}
 
 		// Log In Member State
 		if (_currState == State.LoginMember) {
-			_displayMenuMethod = "displayMenu_LogInMember";
-			_inputProcessMethod = "processInput_LogInMember";
-			_inputProcessParamType = long.class;
-			_inputProcessMaxCharCount = 9;
-			_quitToState = State.ProviderMenu;
+			configStateVars("displayMenu_LogInMember", "processInput_LogInMember", long.class, 9, State.ProviderMenu);
 			return;
 		}
 		
 		// Log Service State (START)
 		if (_currState == State.LogService) {
-			_displayMenuMethod = "processInput_LogService";
-			_inputProcessMethod = null;
-			_inputProcessParamType = null;
-			_inputProcessMaxCharCount = -1;
-			_quitToState = State.ProviderMenu;
+			configStateVars("processInput_LogService", null, null, -1, State.ProviderMenu);
 			return;
 		}
 
 		// Log Service State (Step 1 - Member Login)
 		if (_currState == State.LogService_Member) {
-			_displayMenuMethod = "displayMenu_LogService1";
-			_inputProcessMethod = "processInput_LogService_Step1";
-			_inputProcessParamType = long.class;
-			_inputProcessMaxCharCount = 9;
-			_quitToState = State.ProviderMenu;
+			configStateVars("displayMenu_LogService1", "processInput_LogService_Step1", long.class, 9, State.ProviderMenu);
 			return;
 		}
 
 		// Log Service State (Step 2 - Service Code)
 		if (_currState == State.LogService_Code) {
-			_displayMenuMethod = "displayMenu_LogService2";
-			_inputProcessMethod = "processInput_LogService_Step2";
-			_inputProcessParamType = long.class;
-			_inputProcessMaxCharCount = 6;
-			_quitToState = State.ProviderMenu;
+			configStateVars("displayMenu_LogService2", "processInput_LogService_Step2", long.class, 6, State.ProviderMenu);
 			return;
 		}
 
 		// Log Service State (Step 3 - Service Date)
 		if (_currState == State.LogService_Date) {
-			_displayMenuMethod = "displayMenu_LogService3";
-			_inputProcessMethod = "processInput_LogService_Step3";
-			_inputProcessParamType = Date.class;
-			_inputProcessMaxCharCount = 10;
-			_quitToState = State.ProviderMenu;
+			configStateVars("displayMenu_LogService3", "processInput_LogService_Step3", Date.class, 10, State.ProviderMenu);
 			return;
 		}
 
 		// Log Service State (Step 4 - Service Comments)
 		if (_currState == State.LogService_Comments) {
-			_displayMenuMethod = "displayMenu_LogService4";
-			_inputProcessMethod = "processInput_LogService_Step4";
-			_inputProcessParamType = String.class;
-			_inputProcessMaxCharCount = 100;
-			_quitToState = State.ProviderMenu;
+			configStateVars("displayMenu_LogService4", "processInput_LogService_Step4", String.class, 100, State.ProviderMenu);
 			return;
 		}
 
 		// Log Service State (Step 5 - Service Log Complete & Save)
 		if (_currState == State.LogService_Complete) {
-			_displayMenuMethod = "menu_ServiceLogged";
-			_inputProcessMethod = null;
-			_inputProcessParamType = null;
-			_inputProcessMaxCharCount = -1;
-			_quitToState = State.ProviderMenu;
+			configStateVars("menu_ServiceLogged", null, null, -1, State.ProviderMenu);
+			return;
+		}
+		
+		// Run the Provider Report automatically and exit to the Provider Menu
+		if (_currState == State.LogService_EFTReport) {
+			configStateVars("runReportEFT", null, null, -1, State.ProviderMenu);
 			return;
 		}
 		
 		// Reports - Menu
 		if (_currState == State.ReportMenu) {
-			_displayMenuMethod = "displayMenu_Report";
-			_inputProcessMethod = "processInput_Report";
-			_inputProcessParamType = int.class;
-			_inputProcessMaxCharCount = 1;
-			_quitToState = State.ProviderMenu;
+			configStateVars("displayMenu_Report", "processInput_Report", int.class, 1, State.ProviderMenu);
 			return;
 		}
 		
 		// Reports - Available Services
 		if (_currState == State.Rpt_Services) {
-			_displayMenuMethod = "runReportServices";
-			_inputProcessMethod = null;
-			_inputProcessParamType = null;
-			_inputProcessMaxCharCount = -1;
-			_quitToState = State.ReportMenu;
+			configStateVars("runReportServices", null, null, -1, State.ReportMenu);
+			return;
+		}
+		
+		// Reports - Member Records (require login first)
+		if (_currState == State.Rpt_MemberSvc_Login) {
+			configStateVars("displayMenu_LogInMember", "processInput_ReportMemberLogin", long.class, 9, State.ReportMenu);
 			return;
 		}
 		
 		// Reports - Member Records
 		if (_currState == State.Rpt_MemberSvc) {
-			_displayMenuMethod = "runReportMember";
-			_inputProcessMethod = null;
-			_inputProcessParamType = null;
-			_inputProcessMaxCharCount = -1;
-			_quitToState = State.ReportMenu;
+			configStateVars("runReportMember", null, null, -1, State.ReportMenu);
 			return;
 		}
 		
 		// Reports - Provider Records
 		if (_currState == State.Rpt_ProviderSvc) {
-			_displayMenuMethod = "runReportProvider";
-			_inputProcessMethod = null;
-			_inputProcessParamType = null;
-			_inputProcessMaxCharCount = -1;
-			_quitToState = State.ReportMenu;
+			configStateVars("runReportProvider", null, null, -1, State.ReportMenu);
 			return;
 		}
 		
 		// Reports - EFT Records
 		if (_currState == State.Rpt_EFTRecs) {
-			_displayMenuMethod = "runReportEFT";
-			_inputProcessMethod = null;
-			_inputProcessParamType = null;
-			_inputProcessMaxCharCount = -1;
-			_quitToState = State.ReportMenu;
+			configStateVars("runReportEFT", null, null, -1, State.ReportMenu);
 			return;
 		}
+	}
+	
+	protected void configStateVars(String displayMethod, String inputMethod, Class<?> inputParmType, int MaxCharCount, State quitToState) {
+		_displayMenuMethod = displayMethod;
+		_inputProcessMethod = inputMethod;
+		_inputProcessParamType = inputParmType;
+		_inputProcessMaxCharCount = MaxCharCount;
+		_quitToState = quitToState;
 	}
 
 	protected void runStateMachine() {
@@ -319,7 +285,7 @@ public class StateMachineCtrllr extends AController {
 		}
 
 		// Validate the provider ID (if invalid notify the user)
-		if (ValidateMemberNumber(MemberID) == false) {
+		if (ValidateMemberNumber(MemberID, true) == false) {
 			return;
 		}
 
@@ -343,7 +309,7 @@ public class StateMachineCtrllr extends AController {
 		}
 
 		// Validate the Member Number
-		if (ValidateMemberNumber(memberNumber) && _member != null) {
+		if (ValidateMemberNumber(memberNumber, true) && _member != null) {
 			_currState = State.LogService_Code;
 			return;
 		}
@@ -392,7 +358,11 @@ public class StateMachineCtrllr extends AController {
 		_providedServiceMgr.addProvidedService(_providedService);
 		_providedServiceMgr.save();
 		displayMenu_ServiceLogged();
-		_currState = State.ProviderMenu;
+		_currState = State.LogService_EFTReport;
+		
+		// Keep the state machine running another loop
+		//	 -> More to do before waiting for user action
+		_noInteraction = true;
 	}
 
 	/****************************************************
@@ -411,7 +381,7 @@ public class StateMachineCtrllr extends AController {
 			_currState = State.Rpt_ProviderSvc;
 			break;
 		case 2:
-			_currState = State.Rpt_MemberSvc;
+			_currState = State.Rpt_MemberSvc_Login;
 			break;
 		case 3:
 			_currState = State.Rpt_Services;
@@ -420,6 +390,26 @@ public class StateMachineCtrllr extends AController {
 			_currState = State.Rpt_EFTRecs;
 			break;
 		}
+	}
+	
+	public void processInput_ReportMemberLogin(long memberNumber, boolean quit) {
+		// If we should quit, quit to the main menu
+		if (quit) {
+			_currState = _quitToState;
+			return;
+		}
+
+		// Validate the Member Number
+		if (ValidateMemberNumber(memberNumber, false) && _member != null) {
+			_currState = State.Rpt_MemberSvc;
+			return;
+		}
+		
+		// Change our state to run the report
+		_currState = State.Rpt_MemberSvc;
+		
+		// Force the state machine to run another loop (we're not done yet)
+		_noInteraction = true;
 	}
 
 	public void runReport(String ReportName) throws ReportNotFoundException, IOException {
@@ -531,7 +521,7 @@ public class StateMachineCtrllr extends AController {
 		return true;
 	}
 
-	private boolean ValidateMemberNumber(long memberNumber) {
+	private boolean ValidateMemberNumber(long memberNumber, boolean onlyNonSuspended) {
 		// Find Member by Member Number
 		_member = _memberMgr.findMember(memberNumber);
 
@@ -543,9 +533,14 @@ public class StateMachineCtrllr extends AController {
 
 		// Determine if the member is suspended or not
 		if (_member.getIsSuspended()) {
+			
+			// Notify the user the member is suspended
 			display_MemberSuspended();
-			_member = null; // force the member back to null since they are
-							// currently suspended
+			
+			// force the member back to null since they are currently suspended
+			// -> But only if configured to do so!
+			if (onlyNonSuspended) { _member = null; }
+			
 			return true;
 		}
 

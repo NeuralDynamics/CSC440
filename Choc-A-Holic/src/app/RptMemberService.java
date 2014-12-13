@@ -16,19 +16,19 @@ public class RptMemberService extends AReport {
 		allocateQueue(provServList.size() + 1);		
 		
 		// Write out the Member Name
-		record += Misc.padRight(member.getName(), 25) + delimiter;
+		record += member.getName() + delimiter;
 				
 		// Write out the Member Number
 		record += String.format(Locale.US, "%09d", member.getNumber());
 		
 		// Write out the Address
-		record += Misc.padRight(member.getAddress(), 25) + delimiter;
+		record += member.getAddress() + delimiter;
 		
 		// Write out the City
-		record += Misc.padRight(member.getCity(), 14) + delimiter;
+		record += member.getCity() + delimiter;
 		
 		// Write out the State
-		record += Misc.padRight(member.getState(), 2) + delimiter;
+		record += member.getState() + delimiter;
 		
 		// Write out the Zip Code
 		record += String.format(Locale.US, "%09d", member.getZipCode());
