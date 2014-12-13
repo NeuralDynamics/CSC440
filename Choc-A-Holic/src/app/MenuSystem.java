@@ -33,10 +33,15 @@ public abstract class MenuSystem extends AMethodInvoker implements IController {
 		return this._userInterface;
 	}
 	
+	private void addQuitLine() {
+		_userInterface.addMessageLine("Enter 'q' to Quit:");
+	}
+	
 	// Main Menu
 	public void displayMenu_LogInProvider() {
 		_userInterface.addMessageLine("Welcome to Choc-An-Holics!");
-		_userInterface.addMessageLine("Please your Provider Number or 'q' to Quit:");
+		_userInterface.addMessageLine("Please your Provider Number");
+		addQuitLine();
 		addDivider();
 	}
 
@@ -63,28 +68,38 @@ public abstract class MenuSystem extends AMethodInvoker implements IController {
 
 	// Log In Member
 	public void displayMenu_LogInMember() {
-		_userInterface.addMessageLine("Please enter the Member Number (Max 9 Numbers) or 'q' to quit:");
+		_userInterface.addMessageLine("Please enter the Member Number");
+		_userInterface.addMessageLine("(Max 9 Numbers)");
+		addQuitLine();
 		addDivider();
 	}
 
 	// Log Service Menu - Steps 1-4
 	public void displayMenu_LogService1() {
-		_userInterface.addMessageLine("Please enter the Member Number (Max 9 Numbers) or 'q' to quit:");
+		_userInterface.addMessageLine("Please enter the Member Number");
+		_userInterface.addMessageLine("(Max 9 Numbers)");
+		addQuitLine();
 		addDivider();
 	}
 
 	public void displayMenu_LogService2() {
-		_userInterface.addMessageLine("Please enter the Service Code (Max 6 Numbers) or 'q' to quit:");
+		_userInterface.addMessageLine("Please enter the Service Code");
+		_userInterface.addMessageLine("(Max 6 Numbers)");
+		addQuitLine();
 		addDivider();
 	}
 
 	public void displayMenu_LogService3() {
-		_userInterface.addMessageLine("Please enter the Service Date (" + getDateFormat() + " Format) or 'q' to quit:");
+		_userInterface.addMessageLine("Please enter the Service Date");
+		_userInterface.addMessageLine("(" + getDateFormat() + " Format)");
+		addQuitLine();
 		addDivider();
 	}
 	
 	public void displayMenu_LogService4() {
-		_userInterface.addMessageLine("Please enter any comments (Max 100 Characters) or 'q' to quit:");
+		_userInterface.addMessageLine("Please enter any comments");
+		_userInterface.addMessageLine("(Max 100 Characters)");
+		addQuitLine();
 		addDivider();
 	}
 	
@@ -128,6 +143,10 @@ public abstract class MenuSystem extends AMethodInvoker implements IController {
 	public void display_InvalidDate_Past() {
 		_userInterface.addMessageLine(QUALIFIER + " The date entered is too far in the past. " + QUALIFIER);
 		_userInterface.addMessageLine(QUALIFIER + " Please enter a date between Today and " + getNumDays() + " in past " + QUALIFIER);
+	}
+	
+	public void display_InvalidOption() {
+		_userInterface.addMessageLine(QUALIFIER + " Invalid Option Selected " + QUALIFIER);
 	}
 	
 	protected void addDivider() {

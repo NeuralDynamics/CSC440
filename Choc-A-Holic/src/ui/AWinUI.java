@@ -1,9 +1,13 @@
-package app;
+package ui;
 
 import java.util.ArrayDeque;
 import java.util.Queue;
 
-public abstract class AUserInterface implements IUserInterface {
+import app.CastObjectHelper;
+import app.IMethodInvoker;
+import app.IUserInterface;
+
+public abstract class AWinUI implements IUserInterface {
 	protected IMethodInvoker methodInvoker = null;
 	protected Queue<String> messages = new ArrayDeque<String>();
 	

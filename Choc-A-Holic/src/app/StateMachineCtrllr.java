@@ -30,29 +30,36 @@ enum State {
 
 public class StateMachineCtrllr extends AController {
 
-	boolean _continue;
-	String methodToCall = null;
-	String quitToMethod = null;
+	private String quitToMethod = null;
+	
+	private State _currState = State.Unknown;
+	private State _quitToState = State.Unknown;
+
+	private String _displayMenuMethod;
+	private String _inputProcessMethod;
+	private Class<?> _inputProcessParamType;
+	private int _inputProcessMaxCharCount;
+	
+	private boolean _noInteraction = false;
 
 	@Override
 	public void start() {
 		initialize();
 		runStateMachine();
 	}
+	
+	@Override
+	public void run() {
+		runStateMachine();
+	}
 
 	@Override
 	protected void initialize() {
-		_continue = true;
 		super.initialize();
 	}
 
 	protected void processQuit(String methodToQuitTo) {
-		_continue = false;
 		quitToMethod = methodToQuitTo;
-	}
-
-	protected void resetSelectedOption() {
-		methodToCall = null;
 	}
 
 	protected boolean quitNow() {
@@ -75,16 +82,6 @@ public class StateMachineCtrllr extends AController {
 
 		return true;
 	}
-
-	private State _currState = State.Unknown;
-	private State _quitToState = State.Unknown;
-
-	private String _displayMenuMethod;
-	private String _inputProcessMethod;
-	private Class<?> _inputProcessParamType;
-	private int _inputProcessMaxCharCount;
-	
-	private boolean _noInteraction = false;
 
 	protected void configureState() {
 		// Auto-set the current state to the main menu if its not known what
@@ -224,6 +221,11 @@ public class StateMachineCtrllr extends AController {
 			// We only want to loop if we are not event based (CommandLine in
 			// other words)
 		} while ((_isEventBased == false && _currState != State.Exit) || _noInteraction);
+		
+		// Force the system to quit if we have an exit state here
+		if (_currState == State.Exit) {
+			System.exit(0);
+		}
 	}
 
 	/****************************************************
@@ -270,6 +272,9 @@ public class StateMachineCtrllr extends AController {
 		case 3:
 			// methodToCall = "menu_RunReport";
 			_currState = State.ReportMenu;
+			break;
+		default:
+			display_InvalidOption();
 			break;
 		}
 	}
@@ -389,6 +394,8 @@ public class StateMachineCtrllr extends AController {
 		case 4:
 			_currState = State.Rpt_EFTRecs;
 			break;
+		default:
+			display_InvalidOption();
 		}
 	}
 	

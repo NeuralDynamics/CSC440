@@ -1,85 +1,121 @@
 package ui;
 
-import java.awt.Button;
-import java.awt.Frame;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayDeque;
-import java.util.Queue;
-
-import app.IMethodInvoker;
-import app.IUserInterface;
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Properties;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import org.jdatepicker.impl.JDatePanelImpl;
+import org.jdatepicker.impl.JDatePickerImpl;
+import org.jdatepicker.impl.UtilDateModel;
 
-public class WinUI extends Frame implements ActionListener, IUserInterface {
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
-	protected DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-	
-	protected IMethodInvoker methodInvoker = null;
-	protected Queue<String> messages = new ArrayDeque<String>();
-	
-	protected String methodName = "";
-	protected Class<?> cls;
-	protected int maxCharCount = 0;
+public class WinUI extends AUserInterface implements ActionListener {
+    
+    final static String TEXT = "Text Field";
+    final static String DATE = "Date Field";
+    final static String QUIT = "Quit";
+    final static String SUBMIT = "Submit";
+    
+    private JPanel cards; //a panel that uses CardLayout
+    private JLabel lbl;
+    private JDatePickerImpl datePicker;
+    private JTextFieldLimit txt;
+    
+    private List<String> currentMessages = new ArrayList<String>();
+    
+    private final static int FRAME_WIDTH = 300;
+    private final static int FRAME_HEIGHT = 500;
+    
+    private final static int CONTROL_WIDTH = 350;
+    private final static int CONTROL_HEIGHT = 150;
 	
 	public WinUI() {
-        
-        //call the superclass constructor
-        super();
-       
-        //set window title using setTitle method
-        this.setTitle("Choc-A-Holics Anonymous");
-       
-        //add window event adapter
-        addWindowListener(new MyWindowAdapter(this));
-        
-        JButton btnSubmit = new JButton("Submit");
-        btnSubmit.addActionListener(this);
-        btnSubmit.setSize(50, 28);
-        
-        this.add(btnSubmit);
-       
-        //set window size using setSize method
-        this.setSize(300,500);
-       
-        //show window using setVisible method
-        this.setVisible(true);
+		JFrame frame = new JFrame("CardLayoutDemo");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
+		
+		//set up the content pane.
+        addComponentToPane(frame.getContentPane());
+         
+        //Display the window.
+        frame.pack();
+        frame.setVisible(true);
 	}
-	
-	//extend WindowAdapter
-    class MyWindowAdapter extends WindowAdapter{
-           
-    	WinUI myWindow = null;
-           
-            MyWindowAdapter(WinUI myWindow){
-                    this.myWindow = myWindow;
-            }
-           
-            //implement windowClosing method
-            public void windowClosing(WindowEvent e) {
-                    //hide the window when window's close button is clicked
-                    myWindow.setVisible(false); 
-                    
-                    // Exit the program
-                    System.exit(0);
-            }
-    }
 
-	@Override
-	public void addMessageLine(String message) {
-		messages.add(message);
-	}
+     
+    public void addComponentToPane(Container pane) {
+        //Put the JComboBox in a JPanel to get a nicer look.
+    	
+    	// Output Pane
+    	JPanel labelPane = new JPanel(new FlowLayout()); // use FlowLayout
+    	labelPane.setSize(500, 350);
+    	lbl = new JLabel();
+    	lbl.setMinimumSize(new Dimension(CONTROL_WIDTH, CONTROL_HEIGHT));
+    	lbl.setPreferredSize(new Dimension(CONTROL_WIDTH, CONTROL_HEIGHT));
+    	lbl.setMaximumSize(new Dimension(CONTROL_WIDTH, CONTROL_HEIGHT));
+    	lbl.setText("[Display]");
+    	lbl.setVerticalAlignment(JLabel.TOP);
+    	lbl.setVerticalTextPosition(JLabel.TOP);
+    	labelPane.add(lbl);
+    	
+    	// Input Pane
+    	JPanel cardText = new JPanel();
+    	txt = new JTextFieldLimit();
+    	txt.setMinimumSize(new Dimension(CONTROL_WIDTH, 25));
+    	txt.setPreferredSize(new Dimension(CONTROL_WIDTH, 25));
+    	txt.setMaximumSize(new Dimension(CONTROL_WIDTH, 25));
+    	txt.setActionCommand(SUBMIT);
+    	txt.addActionListener(this);
+    	cardText.add(txt);
+    	
+    	JPanel cardDate = new JPanel();
+    	Properties p = new Properties();
+    	p.put("text.today", "Today");
+    	p.put("text.month", "Month");
+    	p.put("text.year", "Year");
+    	UtilDateModel model = new UtilDateModel();
+    	JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
+    	datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
+    	cardDate.add(datePicker);
+    	
+    	// Action Pane
+    	JPanel buttonPane = new JPanel(); // use FlowLayout
+    	
+    	JButton btnSubmit = new JButton("Submit");
+    	btnSubmit.setSize(100, 50);
+    	btnSubmit.addActionListener(this);
+    	btnSubmit.setActionCommand(SUBMIT);
+    	buttonPane.add(btnSubmit);
+    	
+    	JButton btnQuit = new JButton("Quit");
+    	btnQuit.setSize(50,50);
+    	btnQuit.addActionListener(this);
+    	btnQuit.setActionCommand(QUIT);
+    	buttonPane.add(btnQuit);
+    	
+    	//Create the panel that contains the "cards".
+        cards = new JPanel(new CardLayout());
+        cards.add(cardText, TEXT);
+        cards.add(cardDate, DATE);
+        
+        // Add the panes to the frame
+        pane.add(labelPane, BorderLayout.NORTH);
+        pane.add(cards, BorderLayout.CENTER);
+        pane.add(buttonPane, BorderLayout.SOUTH);
+    }
 	
 	@Override
 	public void displayMsg(String methodName, Class<?> cls, int maxCharCount) {
@@ -87,30 +123,41 @@ public class WinUI extends Frame implements ActionListener, IUserInterface {
 		this.cls = cls;
 		this.methodName = methodName;
 		
-		// Display the text
-		while (messages.isEmpty() == false)
-		{ System.out.println(messages.poll()); }
+		// Configure the input control that the user will use
+		configureInput();
 		
-		// Read the User Input
-		//readUserInput();
-	}
-
-	@Override
-	public void setMethodInvoker(IMethodInvoker methodInvoker) {
-		this.methodInvoker = methodInvoker;
+		// Display the text
+		String Text = "";
+		while (messages.isEmpty() == false)
+		{
+			currentMessages.add(messages.peek());
+			Text += messages.poll() + "<br>"; 
+		}
+		displayOutput(Text);
 	}
 	
-	protected boolean testCharCount(int source, int maxCharCount) {
-		if (source > maxCharCount) {
-			addMessageLine("Too many characters entered. A maximum of " + maxCharCount + " characters is allowed");
-			return false;
+	private void configureInput() {
+		// Set our default to be Text Entry
+		String controlName = TEXT;
+		
+		if (cls == Date.class) {
+			controlName = DATE;	// Configure for Date Picker
+		}
+		else {
+			txt.setLimit(maxCharCount);	// Set the maximum amount of characters that can be entered
 		}
 		
-		return true;
+		// Display the proper card
+		CardLayout cl = (CardLayout)(cards.getLayout());
+        cl.show(cards, controlName);
 	}
 	
-	protected void displayInvalidEntry() {
-		addMessageLine("Invalid Entry. Please try again.");
+	private void displayOutput(String Message) {
+		// Format the message with HTML so we get line breaks
+		String html1 = "<html><body style='width: ";
+        String html2 = "px'>";
+        String html3 = "</html>";
+        lbl.setText(html1 + lbl.getWidth() + html2 + Message + html3);
 	}
 
 	@Override
@@ -121,25 +168,50 @@ public class WinUI extends Frame implements ActionListener, IUserInterface {
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
 		
-	}
-
-	@Override
-	public String getDateFormat() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int getNumDays() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void setNumDays(int numDays) {
-		// TODO Auto-generated method stub
+		Object objData = null;
+		boolean quit = false;
 		
+		
+		// First check to see if the user used the 'Quit' button
+		if (arg0.getActionCommand().equals(QUIT)) {
+			quit = true;
+		}
+		else {
+			if (cls == Date.class) {
+				// Date Parameter
+				if (datePicker.getModel() != null && datePicker.getModel().getValue() != null) {
+					objData = (Date) datePicker.getModel().getValue();
+				}
+			}
+			else {
+				/* Everything else parameter (String, Int, Long, etc.) */
+				
+				// Get the Text entered
+				String dataInput = txt.getText();
+				
+				// Did the user quit?
+				if (dataInput.toLowerCase().equals("q")) { quit = true; }
+				
+				// Cast the value and return a valid object
+				objData = castObjHelper.CastValue(cls, dataInput);
+			}
+		}
+		
+		// If the object is not valid, we failed or we quit... ARG!
+		if (objData == null) {
+			objData = castObjHelper.getDefaultValue(cls);
+			
+			if (quit == false) {
+				// We didn't quit, but there was an error parsing...
+				displayInvalidEntry();
+			}
+		}
+		
+		// Call the assigned method
+		methodInvoker.callMethod(this.methodName, this.cls, objData, boolean.class, quit);
+		
+		// Tell the Controller to process
+		methodInvoker.run();
 	}
 }
