@@ -7,6 +7,7 @@ public abstract class AMethodInvoker implements IMethodInvoker {
 	
 	@Override
 	public void callMethod(String methodName, Class<?> type1, Object input1, Class<?> type2, Object input2) {
+		// Find the method by name and parameter type
 		Method method = null;
 		try {
 			if (type1 == null) {
@@ -44,11 +45,13 @@ public abstract class AMethodInvoker implements IMethodInvoker {
 	}
 	
 	@Override
-	public void callMethod(String methodName, Class<?> type, Object input) {		
+	public void callMethod(String methodName, Class<?> type, Object input) {
+		// Call the method by name and with one parameter
 		callMethod(methodName, type, input, null, null);
 	}
 	
 	public void callMethod(String methodName) {
+		// Call the method by name with no parameters
 		callMethod(methodName, null, null);
 	}
 }
