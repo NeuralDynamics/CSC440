@@ -506,7 +506,7 @@ public class StateMachineCtrllr extends AController {
 		
 		// Make sure the date isn't too far in the past
 		if (DateChecker.withinDays(serviceDate, getNumDays()) == false) {
-			display_InvalidDate_Future();
+			display_InvalidDate_Past();
 			return false;
 		}
 
